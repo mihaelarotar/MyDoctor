@@ -11,4 +11,12 @@
     <string name="menu_gallery">Galerie</string>
     <string name="menu_slideshow">Calendar</string>
     <string name="create_account">Creaază-ți cont</string>
+    <string name="todo">TODO</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="nuAiCont" >Nu ai cont?</string>
+    <string name="registerYou" >Creează cont!</string>
+    <string name="email" >Email</string>
+    <string name="back" >back</string>
 </resources>
