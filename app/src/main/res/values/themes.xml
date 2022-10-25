@@ -19,7 +19,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_image</item>
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
     <style name="Theme.MyDoctor2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyDoctor2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 </resources>

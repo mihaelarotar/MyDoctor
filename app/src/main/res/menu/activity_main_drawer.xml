@@ -7,14 +7,20 @@
         <item
             android:id="@+id/nav_detalii"
             android:icon="@drawable/person"
-            android:title="Date personale" />
+            android:title="@string/date_personale" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Galerie" />
+            android:title="@string/galerie" />
         <item
             android:id="@+id/nav_calendar"
             android:icon="@android:drawable/ic_menu_month"
-            android:title="Calendar" />
+            android:title="@string/calendar" />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
+
     </group>
 </menu>
