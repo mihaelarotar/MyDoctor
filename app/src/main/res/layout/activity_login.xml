@@ -36,7 +36,8 @@
             android:layout_height="match_parent"
             android:backgroundTint="#FFCECE"
             android:hint="@string/username"
-            tools:ignore="DuplicateSpeakableTextCheck" />
+            android:textColorHint="#795548"
+            tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +76,8 @@
             android:background="@color/white"
             android:backgroundTint="#FFCECE"
             android:hint="@string/password"
+            android:inputType="textWebPassword"
+            android:password="true"
             android:textColorHint="#795548"
             tools:ignore="DuplicateSpeakableTextCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +117,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView4"
@@ -131,9 +135,9 @@
 
     <TextView
         android:id="@+id/registerYou"
-        android:layout_width="140dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="215dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
@@ -142,10 +146,10 @@
         android:textAlignment="center"
         android:textColor="#FD3535"
         android:textColorLink="#BF360C"
-        android:textSize="20sp"
+        android:textSize="28sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.737"
+        app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/LoginButton"
         tools:ignore="TouchTargetSizeCheck" />
