@@ -22,4 +22,19 @@
     <string name="galerie">Galerie</string>
     <string name="calendar">Calendar</string>
     <string name="logout">LogOut</string>
+    <string name="Save">Save</string>
+    <string name="Update">Update</string>
+    <string name="greutate">Greutate</string>
+    <string name="bmi">BMI</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="nume">Nume</string>
+    <string name="gen">Gen</string>
+    <string name="puls">Puls</string>
+    <string name="temperatura">Temperatura</string>
+    <string name="n_l_ime">Înălțime</string>
+    <string name="kg">KG</string>
+    <string name="metri">Metri</string>
+    <string name="gradeCelsius">grade Celsius</string>
+    <string name="mmHG">mmHg</string>
+
 </resources>

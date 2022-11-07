@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDoctor2"
         tools:targetApi="31">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".other.LoginActivity" />
         <activity android:name=".other.RegisterActivity" />
         <activity
-            android:name=".other.LoginActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/splashScreenTheme">
             <intent-filter>
