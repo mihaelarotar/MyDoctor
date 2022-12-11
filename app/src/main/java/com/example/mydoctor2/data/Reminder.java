@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "remainder")
-public class Remainder implements Parcelable {
+public class Reminder implements Parcelable {
 
     @NonNull
     @PrimaryKey()
@@ -29,28 +29,28 @@ public class Remainder implements Parcelable {
     @ColumnInfo(name = "data")
     private Date date;
 
-    public Remainder(@NonNull String idRemainder, @NonNull String username, String detalii, Date date) {
+    public Reminder(@NonNull String idRemainder, @NonNull String username, String detalii, Date date) {
         this.idRemainder = idRemainder;
         this.username = username;
         this.detalii = detalii;
         this.date = date;
     }
 
-    protected Remainder(Parcel in) {
+    protected Reminder(Parcel in) {
         idRemainder = in.readString();
         username = in.readString();
         detalii = in.readString();
     }
 
-    public static final Creator<Remainder> CREATOR = new Creator<Remainder>() {
+    public static final Creator<Reminder> CREATOR = new Creator<Reminder>() {
         @Override
-        public Remainder createFromParcel(Parcel in) {
-            return new Remainder(in);
+        public Reminder createFromParcel(Parcel in) {
+            return new Reminder(in);
         }
 
         @Override
-        public Remainder[] newArray(int size) {
-            return new Remainder[size];
+        public Reminder[] newArray(int size) {
+            return new Reminder[size];
         }
     };
 
