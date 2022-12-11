@@ -42,4 +42,6 @@
     <string name="password_cannot_empty">Password cannot be empty!</string>
     <string name="password_too_short"><![CDATA[Password is too short! It has to be >= 8!]]></string>
 
+
+
 </resources>
