@@ -111,12 +111,18 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         for (User user : users) {
-            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+            if (username.equals(user.getUsername()))
+                if(password.equals(user.getPassword())) {
+
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(LoginActivity.this, user);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 return;
             }
+            else
+                {
+                    Toast.makeText(LoginActivity.this, "Password is wrong!", Toast.LENGTH_SHORT).show();
+                }
         }
         Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
 
