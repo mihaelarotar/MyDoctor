@@ -2,6 +2,8 @@ package com.example.mydoctor2;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mydoctor2.data.Sex;
 import com.example.mydoctor2.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
@@ -45,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        Spinner mySpinner = (Spinner) findViewById(R.id.genInput);
-//
-//        mySpinner.setAdapter(new ArrayAdapter<Sex>(this, android.R.layout.simple_spinner_item, Sex.values()));
+        Spinner mySpinner = (Spinner) findViewById(R.id.genInput);
+
+        mySpinner.setAdapter(new ArrayAdapter<Sex>(this, android.R.layout.simple_spinner_item, Sex.values()));
 
     }
 
