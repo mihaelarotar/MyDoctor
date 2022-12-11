@@ -1,5 +1,6 @@
 package com.example.mydoctor2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
@@ -12,8 +13,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mydoctor2.activities.LoginActivity;
 import com.example.mydoctor2.data.Sex;
 import com.example.mydoctor2.databinding.ActivityMainBinding;
+import com.example.mydoctor2.other.SharedPref;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPref sharedPref = SharedPref.getInstance();
 
 //        setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
         mySpinner.setAdapter(new ArrayAdapter<Sex>(this, android.R.layout.simple_spinner_item, Sex.values()));
 
+        navigationView.getMenu().findItem(R.id.logout).setOnMenuItemClickListener(menuItem -> {
+            sharedPref.clearSharedPref(MainActivity.this);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        });
     }
 
     @Override
