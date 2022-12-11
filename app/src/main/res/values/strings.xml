@@ -41,7 +41,11 @@
     <string name="email_not_valid">Email is not valid!</string>
     <string name="password_cannot_empty">Password cannot be empty!</string>
     <string name="password_too_short"><![CDATA[Password is too short! It has to be >= 8!]]></string>
-
+    <string name="editable">You are able to edit now!</string>
+    <string name="saved">Your personal data is saved!</string>
+    <string name="wrong_height">Height should be between 30 and 250</string>
+    <string name="wrong_temp">Temperature should bwe between 36 and 42!</string>
+    <string name="wrong_puls">It should be between 30 and 150</string>
 
 
 </resources>
