@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 public class SharedPref {
 
-    private static final String sharedPreferencesName = "kevinSharedPref";
+    private static final String sharedPreferencesName = "sharedPref";
     private static SharedPref instance = null;
 
     private SharedPref() {

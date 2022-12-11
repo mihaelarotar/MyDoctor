@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mydoctor2.MainActivity;
 import com.example.mydoctor2.R;
 import com.example.mydoctor2.data.User;
 import com.example.mydoctor2.data.UserDatabase;
@@ -124,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "User Created!", Toast.LENGTH_SHORT).show();
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(RegisterActivity.this, user);
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
