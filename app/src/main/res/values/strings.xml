@@ -36,5 +36,10 @@
     <string name="metri">Metri</string>
     <string name="gradeCelsius">grade Celsius</string>
     <string name="mmHG">mmHg</string>
+    <string name="username_cannot_empty">Username cannot be empty!</string>
+    <string name="email_cannot_empty">Email cannot be empty!</string>
+    <string name="email_not_valid">Email is not valid!</string>
+    <string name="password_cannot_empty">Password cannot be empty!</string>
+    <string name="password_too_short"><![CDATA[Password is too short! It has to be >= 8!]]></string>
 
 </resources>
