@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.PatternsCompat;
 
 import com.example.mydoctor2.R;
 import com.example.mydoctor2.data.User;
@@ -49,38 +50,47 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = RegisterActivity.this.email.getText().toString();
                 String pass = password.getText().toString();
 
-//                if (!validateInputs(username, email, password)) return;
+                if (validateInputs(username, email, pass))
+                {
+                    RegisterUserTask registerUserTask = new RegisterUserTask(username, email, pass);
+                    registerUserTask.execute();
+                }
 
-                RegisterUserTask registerUserTask = new RegisterUserTask(username, email, pass);
-                registerUserTask.execute();
             }
         });
     }
 
-//    private boolean validateInputs(String username, String email, String password) {
-//
-//        if (username.isEmpty()) {
-//            Toast.makeText(this, getString(R.string.username_cannot_empty), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        if (email.isEmpty()) {
-//            Toast.makeText(this, getString(R.string.email_cannot_empty), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        if (!isValidEmail(email)) {
-//            Toast.makeText(this, getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        if (password.isEmpty()) {
-//            Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        return true;
-//    }
+    private boolean validateInputs(String username, String email, String password) {
+
+
+
+        if (username.isEmpty()) {
+            Toast.makeText(this, getString(R.string.username_cannot_empty), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, getString(R.string.email_cannot_empty), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.length() < 8) {
+            Toast.makeText(this, getString(R.string.password_too_short), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
 
     class RegisterUserTask extends AsyncTask<Void, Void, Void> {
 

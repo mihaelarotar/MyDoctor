@@ -53,11 +53,13 @@ public class LoginActivity extends AppCompatActivity {
                 String username = userName.getText().toString();
                 String pass = password.getText().toString();
 
-               // if (!validaInputs(username, password)) return;
+                if (validaInputs(username, pass)){
 
-                LoginUserTask ut = new LoginUserTask(username, pass);
-                ut.execute();
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    LoginUserTask ut = new LoginUserTask(username, pass);
+                    ut.execute();
+                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                }
             }
         });
 
@@ -72,20 +74,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-//    private boolean validaInputs(String username, String password) {
-//
-//        if (username.isEmpty()) {
-//            Toast.makeText(this, getString(R.string.username_cannot_empty), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        if (password.isEmpty()) {
-//            Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        return true;
-//    }
+    private boolean validaInputs(String username, String password) {
+
+        if (username.isEmpty()) {
+            Toast.makeText(this, getString(R.string.username_cannot_empty), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
 class LoginUserTask extends AsyncTask<Void, Void, Void> {
 
     private final String username;
@@ -108,12 +111,18 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         for (User user : users) {
-            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+            if (username.equals(user.getUsername()))
+                if(password.equals(user.getPassword())) {
+
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(LoginActivity.this, user);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 return;
             }
+            else
+                {
+                    Toast.makeText(LoginActivity.this, "Password is wrong!", Toast.LENGTH_SHORT).show();
+                }
         }
         Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
 
