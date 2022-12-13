@@ -16,6 +16,9 @@ public class User implements Parcelable {
     @ColumnInfo(name = "username")
     public String username;
 
+    @ColumnInfo(name = "name")
+    public String name;
+
     @NonNull
     @ColumnInfo(name = "email")
     private String email;
@@ -145,11 +148,17 @@ public class User implements Parcelable {
     public int getBodyIndex() {
         return bodyIndex;
     }
-
-    public void setBodyIndex() {
-        this.bodyIndex = this.kg/(this.height*this.height);
+    public void setBodyIndex(int bmi) {
+        this.bodyIndex = bmi;
+    }
+    public void setBodyIndex2(int kg, int height) {
+        this.bodyIndex = kg/(height*height)*10000;
+        System.out.println("kg=" + kg + "height=" + height + "rez = " + bodyIndex);
     }
 
+    public void setBodyIndex3() {
+        this.bodyIndex = 0;
+    }
     public Sex getSex() {
         return sex;
     }
@@ -163,8 +172,14 @@ public class User implements Parcelable {
         return 0;
     }
 
-    public void setBodyIndex(int bodyIndex) {
-        this.bodyIndex = bodyIndex;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -182,4 +197,20 @@ public class User implements Parcelable {
 
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", bloodPressure=" + bloodPressure +
+                ", kg=" + kg +
+                ", height=" + height +
+                ", temperature=" + temperature +
+                ", pulse=" + pulse +
+                ", bodyIndex=" + bodyIndex +
+                ", sex=" + sex +
+                '}';
+    }
 }
