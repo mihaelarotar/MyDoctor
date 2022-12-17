@@ -18,8 +18,7 @@ public class CalendarFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CalendarViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(CalendarViewModel.class);
+        CalendarViewModel slideshowViewModel = new ViewModelProvider(this).get(CalendarViewModel.class);
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
