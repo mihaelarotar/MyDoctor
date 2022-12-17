@@ -18,8 +18,6 @@ public class HomeFragment extends Fragment {
     private EditText name, kg, height, temp, puls, blood, bmi;
     private Spinner gender;
 
-
-
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,6 +35,11 @@ public class HomeFragment extends Fragment {
 
     public void onCreate(){
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

@@ -41,6 +41,5 @@ public class SharedPref {
         editor.clear();
         editor.apply();
     }
-
 }
 
