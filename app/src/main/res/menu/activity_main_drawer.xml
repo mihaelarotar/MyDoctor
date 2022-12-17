@@ -18,6 +18,11 @@
             android:title="@string/calendar" />
 
         <item
+            android:id="@+id/nav_changePass"
+            android:icon="@android:drawable/ic_lock_lock"
+            android:title="@string/changePass" />
+
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/logout"
             android:title="@string/logout" />

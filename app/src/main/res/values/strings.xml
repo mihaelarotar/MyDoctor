@@ -14,10 +14,10 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="nuAiCont" >Nu ai cont?</string>
-    <string name="registerYou" >Creează cont!</string>
-    <string name="email" >Email</string>
-    <string name="back" >back</string>
+    <string name="nuAiCont">Nu ai cont?</string>
+    <string name="registerYou">Creează cont!</string>
+    <string name="email">Email</string>
+    <string name="back">back</string>
     <string name="date_personale">Date personale</string>
     <string name="galerie">Galerie</string>
     <string name="calendar">Calendar</string>
@@ -46,6 +46,12 @@
     <string name="wrong_height">Height should be between 30 and 250</string>
     <string name="wrong_temp">Temperature should bwe between 36 and 42!</string>
     <string name="wrong_puls">It should be between 30 and 150</string>
+    <string name="changePass">Schimbă parola</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="oldPass">Parola veche</string>
+    <string name="newPass">Parola nouă</string>
+    <string name="again_new_password">Parola nouă încă o dată</string>
 
 
 </resources>

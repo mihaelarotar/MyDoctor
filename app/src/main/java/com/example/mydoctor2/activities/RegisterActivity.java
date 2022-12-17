@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.PatternsCompat;
 
 import com.example.mydoctor2.R;
 import com.example.mydoctor2.data.User;
@@ -50,9 +49,17 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = RegisterActivity.this.email.getText().toString();
                 String pass = password.getText().toString();
 
-                if (validateInputs(username, email, pass))
+                PasswordActivity passwordActivity = new PasswordActivity();
+                String encryptedPass = "";
+                try {
+                     encryptedPass = passwordActivity.encrypt(pass);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (validateInputs(username, email, encryptedPass))
                 {
-                    RegisterUserTask registerUserTask = new RegisterUserTask(username, email, pass);
+                    RegisterUserTask registerUserTask = new RegisterUserTask(username, email, encryptedPass);
                     registerUserTask.execute();
                 }
 
@@ -74,10 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        if (PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
+//            Toast.makeText(this, getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         if (password.isEmpty()) {
             Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
@@ -144,10 +151,4 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-
-
-    public void back(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 }

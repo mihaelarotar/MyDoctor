@@ -2,6 +2,7 @@ package com.example.mydoctor2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_detalii, R.id.nav_gallery, R.id.nav_calendar)
+                R.id.nav_detalii, R.id.nav_gallery, R.id.nav_calendar, R.id.nav_changePass)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         name = findViewById(R.id.numeInput);
-        if(!user.getName().matches(""))
+        if(user.getName() != null)
             name.setText(user.getName());
 
         kg = findViewById(R.id.kgInput);
@@ -238,6 +239,18 @@ public class MainActivity extends AppCompatActivity {
                 bmi.setText(""+user.getBodyIndex());
             //colorare
 
+            if(kgToUpdate > 30)
+            {
+                System.out.println("grasule");
+                kg.setBackgroundColor(Color.parseColor("#F12F2F"));
+            }
+            else
+            {
+                System.out.println("Schilodule");
+                kg.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+
+
         });
 
     }
@@ -276,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //functie cu care salvam in db
     private void saveData(User user, String name, int kg, int height, Sex gen, int temp, int puls, int blood) {
         user.setName(name);
         user.setKg(kg);
@@ -293,28 +307,27 @@ public class MainActivity extends AppCompatActivity {
         updateDetailsTask.execute();
     }
 
-        class UpdateDetailsTask extends AsyncTask<Void, Void, Void> {
+    //cu ajutorul ei salvam in db
+    class UpdateDetailsTask extends AsyncTask<Void, Void, Void> {
 
-        private User user;
+    private User user;
 
-        UpdateDetailsTask(User user) {
-            this.user = user;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            UserDatabase databaseClient = UserDatabaseClient.getInstance(getApplicationContext());
-            databaseClient.userDao().updateUser(user);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(MainActivity.this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
-        }
+    UpdateDetailsTask(User user) {
+        this.user = user;
     }
 
+    @Override
+    protected Void doInBackground(Void... voids) {
+        UserDatabase databaseClient = UserDatabaseClient.getInstance(getApplicationContext());
+        databaseClient.userDao().updateUser(user);
+        return null;
+    }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        Toast.makeText(MainActivity.this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
+    }
+    }
 
 }

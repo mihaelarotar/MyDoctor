@@ -53,9 +53,17 @@ public class LoginActivity extends AppCompatActivity {
                 String username = userName.getText().toString();
                 String pass = password.getText().toString();
 
-                if (validaInputs(username, pass)){
+                PasswordActivity passwordActivity = new PasswordActivity();
+                String encryptedPass = "";
+                try {
+                    encryptedPass = passwordActivity.encrypt(pass);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                    LoginUserTask ut = new LoginUserTask(username, pass);
+                if (validaInputs(username, encryptedPass)){
+
+                    LoginUserTask ut = new LoginUserTask(username, encryptedPass);
                     ut.execute();
                     //startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -110,6 +118,7 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        boolean verify = false;
         for (User user : users) {
             if (username.equals(user.getUsername()))
                 if(password.equals(user.getPassword())) {
@@ -117,15 +126,18 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(LoginActivity.this, user);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                verify = true;
                 return;
             }
             else
                 {
                     Toast.makeText(LoginActivity.this, "Password is wrong!", Toast.LENGTH_SHORT).show();
+                    verify = true;
                 }
         }
-        Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
-
+        if(!verify){
+            Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 }

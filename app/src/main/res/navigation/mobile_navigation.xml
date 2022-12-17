@@ -22,4 +22,10 @@
         android:name="com.example.mydoctor2.ui.calendar.CalendarFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_changePass"
+        android:name="com.example.mydoctor2.ui.password.PasswordFragment"
+        android:label="@string/changePass"
+        tools:layout="@layout/fragment_password" />
 </navigation>
