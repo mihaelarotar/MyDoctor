@@ -41,7 +41,8 @@
     <string name="email_not_valid">Email is not valid!</string>
     <string name="password_cannot_empty">Password cannot be empty!</string>
     <string name="password_too_short"><![CDATA[Password is too short! It has to be >= 8!]]></string>
-
+    <string name="convert">Convert</string>
+    <string name="select_image">Select Image</string>
 
 
 </resources>

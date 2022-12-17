@@ -4,25 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment">
+    tools:context=".activities.GalleryActivity">
 
-    <TextView
-        android:id="@+id/text_gallery"
+    <Button
+        android:id="@+id/btn_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/red"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-condensed-light"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:text="@string/select_image"
         android:textAlignment="center"
+        android:textColorLink="#FF9393"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:toggleCheckedStateOnClick="true"
+        tools:ignore="TouchTargetSizeCheck" />
 
-    <RadioGroup
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        tools:layout_editor_absoluteX="221dp"
-        tools:layout_editor_absoluteY="471dp" />
+    <Button
+        android:id="@+id/btn_convert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="640dp"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/red"
+        android:clickable="false"
+        android:focusable="true"
+        android:fontFamily="sans-serif-condensed-light"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:text="@string/convert"
+        android:textAlignment="center"
+        android:textColorLink="#FF9393"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:toggleCheckedStateOnClick="true"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_convert"
+        android:layout_below="@+id/btn_select"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="4dp" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/text_gallery"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <RadioGroup-->
+<!--        android:layout_width="1dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        tools:layout_editor_absoluteX="221dp"-->
+<!--        tools:layout_editor_absoluteY="471dp" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
