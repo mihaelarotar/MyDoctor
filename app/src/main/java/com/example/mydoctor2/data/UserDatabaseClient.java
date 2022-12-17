@@ -2,6 +2,7 @@ package com.example.mydoctor2.data;
 
 import android.content.Context;
 
+import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
 public class UserDatabaseClient {
@@ -19,4 +20,14 @@ public class UserDatabaseClient {
         return instance;
     }
 
+    public static UserDatabase getInstance(Fragment fragment) {
+
+        if (instance == null) {
+            instance = Room.databaseBuilder(
+                            fragment.getContext(), UserDatabase.class, DB_NAME)
+                    .fallbackToDestructiveMigration()
+                    .build();
+        }
+        return instance;
+    }
 }

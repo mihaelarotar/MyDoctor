@@ -52,6 +52,9 @@
     <string name="oldPass">Parola veche</string>
     <string name="newPass">Parola nouă</string>
     <string name="again_new_password">Parola nouă încă o dată</string>
+    <string name="wrong_pass">Not matching!!!</string>
+    <string name="changed">Parola a fost schimbată!</string>
+    <string name="wrong_new_pass">Cele 2 parole noi nu sunt la fel!</string>
 
 
 </resources>
