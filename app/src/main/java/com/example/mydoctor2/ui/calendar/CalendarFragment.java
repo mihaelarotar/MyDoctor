@@ -12,19 +12,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mydoctor2.databinding.FragmentSlideshowBinding;
 
+
 public class CalendarFragment extends Fragment {
 
     private FragmentSlideshowBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CalendarViewModel slideshowViewModel = new ViewModelProvider(this).get(CalendarViewModel.class);
+        CalendarViewModel slideshowViewModel =
+                new ViewModelProvider(this).get(CalendarViewModel.class);
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textSlideshow;
+//        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
