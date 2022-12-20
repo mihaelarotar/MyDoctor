@@ -17,7 +17,7 @@
     <string name="nuAiCont" >Nu ai cont?</string>
     <string name="registerYou" >Creează cont!</string>
     <string name="email" >Email</string>
-    <string name="back" >back</string>
+    <string name="back" ><![CDATA[<-]]></string>
     <string name="date_personale">Date personale</string>
     <string name="galerie">Galerie</string>
     <string name="calendar">Calendar</string>
