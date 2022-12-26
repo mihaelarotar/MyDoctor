@@ -78,8 +78,15 @@ public class MainActivity extends AppCompatActivity {
             name.setText(user.getName());
 
         kg = findViewById(R.id.kgInput);
-        if(user.getKg() != 0)
+        if(user.getKg() != 0){
             kg.setText(""+user.getKg());
+            if(user.getHeight() != 0){
+                if((user.getHeight()%100 - 10) > user.getKg())
+                    kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else if((user.getHeight()%100 + 10) > user.getKg())
+                    kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            }
+        }
 
         height = findViewById(R.id.heightInput);
         if(user.getHeight() != 0)
@@ -92,12 +99,29 @@ public class MainActivity extends AppCompatActivity {
             temp.setText(""+user.getTemperature());
 
         puls = findViewById(R.id.pulsInput);
-        if(user.getPulse() != 0)
+        if(user.getPulse() != 0){
             puls.setText(""+user.getPulse());
+            if(110 <= user.getPulse() && user.getPulse() <= 130)
+                puls.setBackgroundColor(Color.parseColor("#ffc84c"));
+            else if( user.getPulse() >= 131)
+                puls.setBackgroundColor(Color.parseColor("#ff5a5a"));
+        }
+
 
         blood = findViewById(R.id.bloodInput);
         if(user.getBloodPressure() != 0)
+        {
             blood.setText(""+user.getBloodPressure());
+            if(120 <= user.getBloodPressure() && user.getBloodPressure() <= 129)
+                blood.setBackgroundColor(Color.parseColor("#f8fc95"));
+            else if(130 <= user.getBloodPressure() && user.getBloodPressure() <= 139)
+                blood.setBackgroundColor(Color.parseColor("#ffc84c"));
+            else if(user.getBloodPressure() >= 140 && user.getBloodPressure() < 180)
+                blood.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else if(user.getBloodPressure() >= 180)
+                blood.setBackgroundColor(Color.parseColor("#cc1717"));
+        }
+
 
         bmi = findViewById(R.id.bmiInput);
         if(user.getBodyIndex() != 0)
@@ -237,18 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(user.getBodyIndex() != 0)
                 bmi.setText(""+user.getBodyIndex());
-            //colorare
 
-            if(kgToUpdate > 30)
-            {
-                System.out.println("grasule");
-                kg.setBackgroundColor(Color.parseColor("#F12F2F"));
-            }
-            else
-            {
-                System.out.println("Schilodule");
-                kg.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            }
 
 
         });
