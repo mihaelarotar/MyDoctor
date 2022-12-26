@@ -52,8 +52,10 @@ public class HomeFragment extends Fragment {
             if(user.getHeight() != 0){
                 if((user.getHeight()%100 - 10) > user.getKg())
                     kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
-                else if((user.getHeight()%100 + 10) > user.getKg())
+                else if((user.getHeight()%100 + 10) < user.getKg())
                     kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else
+                    kg.setBackgroundColor(Color.parseColor("#ffffff"));
             }
         }
 
@@ -64,8 +66,14 @@ public class HomeFragment extends Fragment {
         gender = mySpinner;
 
         temp = rootView.findViewById(R.id.tempInput);
-        if(user.getTemperature() != 0)
+        if(user.getTemperature() != 0){
             temp.setText(""+user.getTemperature());
+            if(user.getTemperature() > 37)
+                temp.setBackgroundColor(Color.parseColor("#51d24e"));
+            else
+                temp.setBackgroundColor(Color.parseColor("#ca66ee"));
+        }
+
 
         puls = rootView.findViewById(R.id.pulsInput);
         if(user.getPulse() != 0){
@@ -74,6 +82,8 @@ public class HomeFragment extends Fragment {
                 puls.setBackgroundColor(Color.parseColor("#ffc84c"));
             else if( user.getPulse() >= 131)
                 puls.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else
+                puls.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
 
@@ -89,6 +99,8 @@ public class HomeFragment extends Fragment {
                 blood.setBackgroundColor(Color.parseColor("#ff5a5a"));
             else if(user.getBloodPressure() >= 180)
                 blood.setBackgroundColor(Color.parseColor("#cc1717"));
+            else
+                blood.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
 
@@ -227,8 +239,41 @@ public class HomeFragment extends Fragment {
             saveData(user, nameToUpdate, kgToUpdate, heightToUpdate, (Sex) gender.getSelectedItem(),
                     tempToUpdate, pulsToUpdate, bloodToUpdate);
 
+            System.out.println("Vlad e gay!!!!");
+
             if(user.getBodyIndex() != 0)
                 bmi.setText(""+user.getBodyIndex());
+
+            if((heightToUpdate%100 - 10) > kgToUpdate)
+                kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else if((heightToUpdate%100 + 10) < kgToUpdate)
+                kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else
+                kg.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            if(110 <= pulsToUpdate && pulsToUpdate <= 130)
+                puls.setBackgroundColor(Color.parseColor("#ffc84c"));
+            else if(pulsToUpdate >= 131)
+                puls.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else
+                puls.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            if(120 <= bloodToUpdate && bloodToUpdate <= 129)
+                blood.setBackgroundColor(Color.parseColor("#f8fc95"));
+            else if(130 <= bloodToUpdate && bloodToUpdate <= 139)
+                blood.setBackgroundColor(Color.parseColor("#ffc84c"));
+            else if(bloodToUpdate >= 140 && bloodToUpdate < 180)
+                blood.setBackgroundColor(Color.parseColor("#ff5a5a"));
+            else if(bloodToUpdate >= 180)
+                blood.setBackgroundColor(Color.parseColor("#cc1717"));
+            else
+                blood.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+            if(tempToUpdate > 37)
+                temp.setBackgroundColor(Color.parseColor("#51d24e"));
+            else
+                temp.setBackgroundColor(Color.parseColor("#ca66ee"));
 
         });
 

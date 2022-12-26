@@ -44,7 +44,7 @@
     <string name="editable">You are able to edit now!</string>
     <string name="saved">Your personal data is saved!</string>
     <string name="wrong_height">Height should be between 30 and 250</string>
-    <string name="wrong_temp">Temperature should bwe between 36 and 42!</string>
+    <string name="wrong_temp">Temperature should be between 36 and 42!</string>
     <string name="wrong_puls">It should be between 30 and 150</string>
     <string name="changePass">Schimbă parola</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -55,6 +55,7 @@
     <string name="wrong_pass">Not matching!!!</string>
     <string name="changed">Parola a fost schimbată!</string>
     <string name="wrong_new_pass">Cele 2 parole noi nu sunt la fel!</string>
+    <string name="welcome">Bine ai venit!</string>
 
 
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_detalii">
+    app:startDestination="@+id/welcomeFragment">
 
     <fragment
         android:id="@+id/nav_detalii"
@@ -28,4 +28,9 @@
         android:name="com.example.mydoctor2.ui.password.PasswordFragment"
         android:label="@string/changePass"
         tools:layout="@layout/fragment_password" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.mydoctor2.ui.WelcomeFragment"
+        android:label="@string/welcome"
+        tools:layout="@layout/fragment_welcome" />
 </navigation>
