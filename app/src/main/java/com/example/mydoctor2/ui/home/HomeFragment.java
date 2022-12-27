@@ -105,8 +105,11 @@ public class HomeFragment extends Fragment {
 
 
         bmi = rootView.findViewById(R.id.bmiInput);
-        if(user.getBodyIndex() != 0)
-            bmi.setText("33");//+user.getBodyIndex()
+        if(user.getKg() != 0 && user.getHeight() != 0){
+            float BMI = 0;
+            BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
+            bmi.setText("" + BMI);
+        }
 
         Button updateData = rootView.findViewById(R.id.updateData);
         Button saveData = rootView.findViewById(R.id.saveData);
@@ -196,8 +199,8 @@ public class HomeFragment extends Fragment {
 
             //save into database
             String nameToUpdate;
-            int kgToUpdate;
-            int heightToUpdate;
+            float kgToUpdate;
+            float heightToUpdate;
             int tempToUpdate;
             int pulsToUpdate;
             int bloodToUpdate;
@@ -207,12 +210,12 @@ public class HomeFragment extends Fragment {
             if(kgInput2.matches(""))
                 kgToUpdate = 0;
             else
-                kgToUpdate = Integer.parseInt(kg.getText().toString());
+                kgToUpdate = Float.parseFloat(kg.getText().toString());
 
             if(heightInput2.matches(""))
                 heightToUpdate = 0;
             else
-                heightToUpdate = Integer.parseInt(heightInput2);
+                heightToUpdate = Float.parseFloat(heightInput2);
 
             if(tempInput2.matches(""))
                 tempToUpdate = 0;
@@ -229,18 +232,19 @@ public class HomeFragment extends Fragment {
             else
                 bloodToUpdate = Integer.parseInt(bloodInput2);
 
-            System.out.println(user + "  " + nameToUpdate + "  " + kgToUpdate + "  " +
-                    heightToUpdate+ "  " + gender.getSelectedItem()+ "  " +
-                    tempToUpdate+ "  " +pulsToUpdate+ "  " + bloodToUpdate);
-
-
             saveData(user, nameToUpdate, kgToUpdate, heightToUpdate, (Sex) gender.getSelectedItem(),
                     tempToUpdate, pulsToUpdate, bloodToUpdate);
 
-            System.out.println("Vlad e gay!!!!");
-
-            if(user.getBodyIndex() != 0)
-                bmi.setText(""+user.getBodyIndex());
+            if(user.getKg() != 0 && user.getHeight() != 0){
+                float BMI = 0;
+                BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
+                bmi.setText("" + BMI);
+                System.out.println(BMI);
+            }
+            else
+            {
+                bmi.setText("");
+            }
 
             if((heightToUpdate%100 - 10) > kgToUpdate)
                 kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
@@ -310,7 +314,7 @@ public class HomeFragment extends Fragment {
     }
 
     //functie cu care salvam in db
-    private void saveData(User user, String name, int kg, int height, Sex gen, int temp, int puls, int blood) {
+    private void saveData(User user, String name, float kg, float height, Sex gen, int temp, int puls, int blood) {
         user.setName(name);
         user.setKg(kg);
         user.setHeight(height);
@@ -318,11 +322,6 @@ public class HomeFragment extends Fragment {
         user.setTemperature(temp);
         user.setPulse(puls);
         user.setBloodPressure(blood);
-        if (kg != 0 && height != 0) {
-            user.setBodyIndex2(kg, height);
-        } else {
-            user.setBodyIndex3();
-        }
         HomeFragment.UpdateDetailsTask updateDetailsTask = new HomeFragment.UpdateDetailsTask(user);
         updateDetailsTask.execute();
     }

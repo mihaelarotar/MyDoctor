@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         //aici iau userul logat
         User user = SharedPref.getInstance().getUser(this);
 
-        System.out.println(user);
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each

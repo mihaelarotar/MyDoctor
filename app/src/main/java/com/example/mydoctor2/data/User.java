@@ -31,19 +31,16 @@ public class User implements Parcelable {
     private int bloodPressure;
 
     @ColumnInfo(name = "kg")
-    private int kg;
+    private float kg;
 
     @ColumnInfo(name = "height")
-    private int height;
+    private float height;
 
     @ColumnInfo(name = "temperature")
     private int temperature;
 
     @ColumnInfo(name = "pulse")
     private int pulse;
-
-    @ColumnInfo(name = "bodyIndex")
-    private int bodyIndex;
 
     @ColumnInfo(name = "sex")
     private Sex sex;
@@ -63,7 +60,6 @@ public class User implements Parcelable {
         height = in.readInt();
         temperature = in.readInt();
         pulse = in.readInt();
-        bodyIndex = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -113,19 +109,19 @@ public class User implements Parcelable {
         this.bloodPressure = bloodPressure;
     }
 
-    public int getKg() {
+    public float getKg() {
         return kg;
     }
 
-    public void setKg(int kg) {
+    public void setKg(float kg) {
         this.kg = kg;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
@@ -145,20 +141,6 @@ public class User implements Parcelable {
         this.pulse = pulse;
     }
 
-    public int getBodyIndex() {
-        return bodyIndex;
-    }
-    public void setBodyIndex(int bmi) {
-        this.bodyIndex = bmi;
-    }
-    public void setBodyIndex2(int kg, int height) {
-        this.bodyIndex = kg/(height*height)*10000;
-        System.out.println("kg=" + kg + "height=" + height + "rez = " + bodyIndex);
-    }
-
-    public void setBodyIndex3() {
-        this.bodyIndex = 0;
-    }
     public Sex getSex() {
         return sex;
     }
@@ -188,12 +170,10 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(password);
         dest.writeString(String.valueOf(sex));
-        dest.writeString(String.valueOf(bodyIndex));
         dest.writeString(String.valueOf(kg));
         dest.writeString(String.valueOf(height));
         dest.writeString(String.valueOf(temperature));
         dest.writeString(String.valueOf(pulse));
-        dest.writeString(String.valueOf(bodyIndex));
 
     }
 
@@ -209,7 +189,6 @@ public class User implements Parcelable {
                 ", height=" + height +
                 ", temperature=" + temperature +
                 ", pulse=" + pulse +
-                ", bodyIndex=" + bodyIndex +
                 ", sex=" + sex +
                 '}';
     }
