@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment {
 
         bmi = rootView.findViewById(R.id.bmiInput);
         if(user.getKg() != 0 && user.getHeight() != 0){
-            float BMI = 0;
+            float BMI;
             BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
             bmi.setText("" + BMI);
         }
@@ -159,124 +159,124 @@ public class HomeFragment extends Fragment {
             String pulsInput2 = puls.getText().toString();
             String bloodInput2 = blood.getText().toString();
 
-            //if (validateInputs(heightInput2, tempInput2, pulsInput2))
-            // {
-            name.setEnabled(false);
-            kg.setEnabled(false);
-            height.setEnabled(false);
-            gender.setEnabled(false);
-            temp.setEnabled(false);
-            puls.setEnabled(false);
-            blood.setEnabled(false);
-            bmi.setEnabled(false);
+            if (validateInputs(heightInput2, tempInput2, pulsInput2)) {
+                name.setEnabled(false);
+                kg.setEnabled(false);
+                height.setEnabled(false);
+                gender.setEnabled(false);
+                temp.setEnabled(false);
+                puls.setEnabled(false);
+                blood.setEnabled(false);
+                bmi.setEnabled(false);
 
-            name.setClickable(false);
-            kg.setClickable(false);
-            height.setClickable(false);
-            gender.setClickable(false);
-            temp.setClickable(false);
-            puls.setClickable(false);
-            blood.setClickable(false);
-            bmi.setClickable(false);
+                name.setClickable(false);
+                kg.setClickable(false);
+                height.setClickable(false);
+                gender.setClickable(false);
+                temp.setClickable(false);
+                puls.setClickable(false);
+                blood.setClickable(false);
+                bmi.setClickable(false);
 
-            name.setFocusable(false);
-            kg.setFocusable(false);
-            height.setFocusable(false);
-            gender.setFocusable(false);
-            temp.setFocusable(false);
-            puls.setFocusable(false);
-            blood.setFocusable(false);
-            bmi.setFocusable(false);
+                name.setFocusable(false);
+                kg.setFocusable(false);
+                height.setFocusable(false);
+                gender.setFocusable(false);
+                temp.setFocusable(false);
+                puls.setFocusable(false);
+                blood.setFocusable(false);
+                bmi.setFocusable(false);
 
-            name.setFocusableInTouchMode(false);
-            kg.setFocusableInTouchMode(false);
-            height.setFocusableInTouchMode(false);
-            gender.setFocusableInTouchMode(false);
-            temp.setFocusableInTouchMode(false);
-            puls.setFocusableInTouchMode(false);
-            blood.setFocusableInTouchMode(false);
-            bmi.setFocusableInTouchMode(false);
+                name.setFocusableInTouchMode(false);
+                kg.setFocusableInTouchMode(false);
+                height.setFocusableInTouchMode(false);
+                gender.setFocusableInTouchMode(false);
+                temp.setFocusableInTouchMode(false);
+                puls.setFocusableInTouchMode(false);
+                blood.setFocusableInTouchMode(false);
+                bmi.setFocusableInTouchMode(false);
 
-            //save into database
-            String nameToUpdate;
-            float kgToUpdate;
-            float heightToUpdate;
-            int tempToUpdate;
-            int pulsToUpdate;
-            int bloodToUpdate;
+                //save into database
+                String nameToUpdate;
+                float kgToUpdate;
+                float heightToUpdate;
+                int tempToUpdate;
+                int pulsToUpdate;
+                int bloodToUpdate;
 
-            nameToUpdate = name.getText().toString();
+                nameToUpdate = name.getText().toString();
 
-            if(kgInput2.matches(""))
-                kgToUpdate = 0;
-            else
-                kgToUpdate = Float.parseFloat(kg.getText().toString());
+                if(kgInput2.matches(""))
+                    kgToUpdate = 0;
+                else
+                    kgToUpdate = Float.parseFloat(kg.getText().toString());
 
-            if(heightInput2.matches(""))
-                heightToUpdate = 0;
-            else
-                heightToUpdate = Float.parseFloat(heightInput2);
+                if(heightInput2.matches(""))
+                    heightToUpdate = 0;
+                else
+                    heightToUpdate = Float.parseFloat(heightInput2);
 
-            if(tempInput2.matches(""))
-                tempToUpdate = 0;
-            else
-                tempToUpdate = Integer.parseInt(tempInput2);
+                if(tempInput2.matches(""))
+                    tempToUpdate = 0;
+                else
+                    tempToUpdate = Integer.parseInt(tempInput2);
 
-            if(pulsInput2.matches(""))
-                pulsToUpdate = 0;
-            else
-                pulsToUpdate = Integer.parseInt(pulsInput2);
+                if(pulsInput2.matches(""))
+                    pulsToUpdate = 0;
+                else
+                    pulsToUpdate = Integer.parseInt(pulsInput2);
 
-            if(bloodInput2.matches(""))
-                bloodToUpdate = 0;
-            else
-                bloodToUpdate = Integer.parseInt(bloodInput2);
+                if(bloodInput2.matches(""))
+                    bloodToUpdate = 0;
+                else
+                    bloodToUpdate = Integer.parseInt(bloodInput2);
 
-            saveData(user, nameToUpdate, kgToUpdate, heightToUpdate, (Sex) gender.getSelectedItem(),
-                    tempToUpdate, pulsToUpdate, bloodToUpdate);
+                saveData(user, nameToUpdate, kgToUpdate, heightToUpdate, (Sex) gender.getSelectedItem(),
+                        tempToUpdate, pulsToUpdate, bloodToUpdate);
 
-            if(user.getKg() != 0 && user.getHeight() != 0){
-                float BMI = 0;
-                BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
-                bmi.setText("" + BMI);
-                System.out.println(BMI);
-            }
-            else
-            {
-                bmi.setText("");
-            }
+                if(user.getKg() != 0 && user.getHeight() != 0){
+                    float BMI;
+                    BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
+                    bmi.setText("" + BMI);
+                }
+                else
+                {
+                    bmi.setText("");
+                }
 
-            if((heightToUpdate%100 - 10) > kgToUpdate)
-                kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
-            else if((heightToUpdate%100 + 10) < kgToUpdate)
-                kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
-            else
-                kg.setBackgroundColor(Color.parseColor("#ffffff"));
+                if((heightToUpdate%100 - 10) > kgToUpdate)
+                    kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else if((heightToUpdate%100 + 10) < kgToUpdate)
+                    kg.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else
+                    kg.setBackgroundColor(Color.parseColor("#ffffff"));
 
-            if(110 <= pulsToUpdate && pulsToUpdate <= 130)
-                puls.setBackgroundColor(Color.parseColor("#ffc84c"));
-            else if(pulsToUpdate >= 131)
-                puls.setBackgroundColor(Color.parseColor("#ff5a5a"));
-            else
-                puls.setBackgroundColor(Color.parseColor("#ffffff"));
+                if(110 <= pulsToUpdate && pulsToUpdate <= 130)
+                    puls.setBackgroundColor(Color.parseColor("#ffc84c"));
+                else if(pulsToUpdate >= 131)
+                    puls.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else
+                    puls.setBackgroundColor(Color.parseColor("#ffffff"));
 
-            if(120 <= bloodToUpdate && bloodToUpdate <= 129)
-                blood.setBackgroundColor(Color.parseColor("#f8fc95"));
-            else if(130 <= bloodToUpdate && bloodToUpdate <= 139)
-                blood.setBackgroundColor(Color.parseColor("#ffc84c"));
-            else if(bloodToUpdate >= 140 && bloodToUpdate < 180)
-                blood.setBackgroundColor(Color.parseColor("#ff5a5a"));
-            else if(bloodToUpdate >= 180)
-                blood.setBackgroundColor(Color.parseColor("#cc1717"));
-            else
-                blood.setBackgroundColor(Color.parseColor("#ffffff"));
+                if(120 <= bloodToUpdate && bloodToUpdate <= 129)
+                    blood.setBackgroundColor(Color.parseColor("#f8fc95"));
+                else if(130 <= bloodToUpdate && bloodToUpdate <= 139)
+                    blood.setBackgroundColor(Color.parseColor("#ffc84c"));
+                else if(bloodToUpdate >= 140 && bloodToUpdate < 180)
+                    blood.setBackgroundColor(Color.parseColor("#ff5a5a"));
+                else if(bloodToUpdate >= 180)
+                    blood.setBackgroundColor(Color.parseColor("#cc1717"));
+                else
+                    blood.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-            if(tempToUpdate > 37)
-                temp.setBackgroundColor(Color.parseColor("#51d24e"));
-            else
-                temp.setBackgroundColor(Color.parseColor("#ca66ee"));
+                if(tempToUpdate > 37)
+                    temp.setBackgroundColor(Color.parseColor("#51d24e"));
+                else
+                    temp.setBackgroundColor(Color.parseColor("#ca66ee"));
 
+
+             }
         });
 
         return rootView;
@@ -294,20 +294,25 @@ public class HomeFragment extends Fragment {
     }
 
     private boolean validateInputs(String height, String temp, String puls) {
-
-        if (Integer.parseInt(height) < 30 || Integer.parseInt(height) > 250) {
-            Toast.makeText(getActivity(), getString(R.string.wrong_height), Toast.LENGTH_SHORT).show();
-            return false;
+        if(!height.isEmpty()){
+            if (Float.parseFloat(height) < 30 || Float.parseFloat(height) > 250) {
+                Toast.makeText(getActivity(), getString(R.string.wrong_height), Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
-        if (Double.parseDouble(temp) < 36.0 || Double.parseDouble(temp) > 42.0) {
-            Toast.makeText(getActivity(), getString(R.string.wrong_temp), Toast.LENGTH_SHORT).show();
-            return false;
+        if(!temp.isEmpty()){
+            if (Double.parseDouble(temp) < 36.0 || Double.parseDouble(temp) > 42.0) {
+                Toast.makeText(getActivity(), getString(R.string.wrong_temp), Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
-        if (Integer.parseInt(puls) < 30 || Integer.parseInt(puls) > 150) {
-            Toast.makeText(getActivity(), getString(R.string.wrong_puls), Toast.LENGTH_SHORT).show();
-            return false;
+        if(!puls.isEmpty()){
+            if (Integer.parseInt(puls) < 30 || Integer.parseInt(puls) > 150) {
+                Toast.makeText(getActivity(), getString(R.string.wrong_puls), Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
         return true;
