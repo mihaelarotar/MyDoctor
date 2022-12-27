@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.mydoctor2.MainActivity;
 import com.example.mydoctor2.R;
@@ -26,8 +25,6 @@ import com.example.mydoctor2.other.SharedPref;
  * create an instance of this fragment.
  */
 public class PasswordFragment extends Fragment {
-
-    private AppBarConfiguration mAppBarConfiguration;
 
     private EditText oldPass, newPass, newPassAgain;
 
@@ -52,29 +49,25 @@ public class PasswordFragment extends Fragment {
         newPassAgain = rootView.findViewById(R.id.new_pass_again);
 
         Button buttonChangePass = (Button) rootView.findViewById(R.id.change_pass_button);
-        buttonChangePass.setOnClickListener(new View.OnClickListener(){
+        buttonChangePass.setOnClickListener(view -> {
+            String oldPassword = oldPass.getText().toString();
+            String newPassword = newPass.getText().toString();
+            String newPasswordAgain = newPassAgain.getText().toString();
 
-            @Override
-            public void onClick(View view) {
-                String oldPassword = oldPass.getText().toString();
-                String newPassword = newPass.getText().toString();
-                String newPasswordAgain = newPassAgain.getText().toString();
-
-                if(validaInputs(oldPassword, newPassword, newPasswordAgain))
-                {
-                    String newEncryptedPass = "";
-                    String dbPass = user.getPassword();
-                    PasswordActivity passwordActivity = new PasswordActivity();
-                    try {
-                        newEncryptedPass = passwordActivity.encrypt(newPassword);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    user.setPassword(newEncryptedPass);
-                    UpdatePasswordTask updatePasswordTask = new UpdatePasswordTask(user, oldPassword, newPassword, dbPass);
-                    updatePasswordTask.execute();
+            if(validaInputs(oldPassword, newPassword, newPasswordAgain))
+            {
+                String newEncryptedPass = "";
+                String dbPass = user.getPassword();
+                PasswordActivity passwordActivity = new PasswordActivity();
+                try {
+                    newEncryptedPass = passwordActivity.encrypt(newPassword);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+                user.setPassword(newEncryptedPass);
+                UpdatePasswordTask updatePasswordTask = new UpdatePasswordTask(user, oldPassword, newPassword, dbPass);
+                updatePasswordTask.execute();
             }
         });
 
@@ -119,7 +112,7 @@ public class PasswordFragment extends Fragment {
     //cu ajutorul ei salvam in db
     class UpdatePasswordTask extends AsyncTask<Void, Void, Void> {
 
-        private User user;
+        private final User user;
         private final String oldPass;
         private final String newPass;
         private final String dbPass;
@@ -159,7 +152,6 @@ public class PasswordFragment extends Fragment {
                 sharedPref.setUser(getActivity(), user);
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 Toast.makeText(getActivity(), getString(R.string.changed), Toast.LENGTH_SHORT).show();
-                return;
             }
             else {
                 Toast.makeText(getActivity(), getString(R.string.wrong_pass), Toast.LENGTH_SHORT).show();

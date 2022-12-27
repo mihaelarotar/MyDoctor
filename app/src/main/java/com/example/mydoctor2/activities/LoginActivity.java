@@ -1,8 +1,9 @@
 package com.example.mydoctor2.activities;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,11 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        SharedPref sharedPref = SharedPref.getInstance();
-//        if (sharedPref.getUser(this) != null) {
-//            startActivity(new Intent(this, MainActivity.class));
-//            finish();
-//        }
     }
 
     @Override
@@ -46,38 +42,29 @@ public class LoginActivity extends AppCompatActivity {
         TextView signUpWriting = findViewById(R.id.registerYou);
         Button btnLogin = findViewById(R.id.LoginButton);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnLogin.setOnClickListener(view -> {
 
-                String username = userName.getText().toString();
-                String pass = password.getText().toString();
+            String username = userName.getText().toString();
+            String pass = password.getText().toString();
 
-                PasswordActivity passwordActivity = new PasswordActivity();
-                String encryptedPass = "";
-                try {
-                    encryptedPass = passwordActivity.encrypt(pass);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            PasswordActivity passwordActivity = new PasswordActivity();
+            String encryptedPass = "";
+            try {
+                encryptedPass = passwordActivity.encrypt(pass);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                if (validaInputs(username, encryptedPass)){
+            if (validaInputs(username, encryptedPass)){
 
-                    LoginUserTask ut = new LoginUserTask(username, encryptedPass);
-                    ut.execute();
-                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                LoginUserTask ut = new LoginUserTask(username, encryptedPass);
+                ut.execute();
+                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                }
             }
         });
 
-        signUpWriting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-
-            }
-        });
+        signUpWriting.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
 
 
     }
@@ -97,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+@SuppressLint("StaticFieldLeak")
 class LoginUserTask extends AsyncTask<Void, Void, Void> {
 
     private final String username;
@@ -126,7 +114,6 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(LoginActivity.this, user);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                verify = true;
                 return;
             }
             else

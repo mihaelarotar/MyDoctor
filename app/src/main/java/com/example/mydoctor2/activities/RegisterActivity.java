@@ -1,10 +1,10 @@
 package com.example.mydoctor2.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,36 +34,28 @@ public class RegisterActivity extends AppCompatActivity {
         ImageView btnBack = findViewById(R.id.backToLogin);
         Button btnRegister = findViewById(R.id.register_button);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+        btnBack.setOnClickListener(view -> finish());
+
+        btnRegister.setOnClickListener(view -> {
+
+            String username = userName.getText().toString();
+            String email = RegisterActivity.this.email.getText().toString();
+            String pass = password.getText().toString();
+
+            PasswordActivity passwordActivity = new PasswordActivity();
+            String encryptedPass = "";
+            try {
+                 encryptedPass = passwordActivity.encrypt(pass);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String username = userName.getText().toString();
-                String email = RegisterActivity.this.email.getText().toString();
-                String pass = password.getText().toString();
-
-                PasswordActivity passwordActivity = new PasswordActivity();
-                String encryptedPass = "";
-                try {
-                     encryptedPass = passwordActivity.encrypt(pass);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (validateInputs(username, email, encryptedPass))
-                {
-                    RegisterUserTask registerUserTask = new RegisterUserTask(username, email, encryptedPass);
-                    registerUserTask.execute();
-                }
-
+            if (validateInputs(username, email, encryptedPass))
+            {
+                RegisterUserTask registerUserTask = new RegisterUserTask(username, email, encryptedPass);
+                registerUserTask.execute();
             }
+
         });
     }
 
@@ -81,10 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-//        if (PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
-//            Toast.makeText(this, getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
 
         if (password.isEmpty()) {
             Toast.makeText(this, getString(R.string.password_cannot_empty), Toast.LENGTH_SHORT).show();
@@ -99,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("StaticFieldLeak")
     class RegisterUserTask extends AsyncTask<Void, Void, Void> {
 
         private final String username;

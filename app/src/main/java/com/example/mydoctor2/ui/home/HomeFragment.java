@@ -1,5 +1,6 @@
 package com.example.mydoctor2.ui.home;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mydoctor2.R;
 import com.example.mydoctor2.data.Sex;
@@ -31,16 +31,16 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
+    @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
         User user = SharedPref.getInstance().getUser(getActivity());
         Spinner mySpinner = (Spinner) rootView.findViewById(R.id.genInput);
-        mySpinner.setAdapter(new ArrayAdapter<Sex>(getActivity(), android.R.layout.simple_spinner_item, Sex.values()));
+        mySpinner.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Sex.values()));
 
         name = rootView.findViewById(R.id.numeInput);
         if(user.getName() != null)
@@ -150,7 +150,6 @@ public class HomeFragment extends Fragment {
 
         saveData.setOnClickListener(view -> {
 
-            String nameInput2 = name.getText().toString();
             String kgInput2 = kg.getText().toString();
             String heightInput2 = height.getText().toString();
             String tempInput2 = temp.getText().toString();
@@ -199,7 +198,6 @@ public class HomeFragment extends Fragment {
             String nameToUpdate;
             int kgToUpdate;
             int heightToUpdate;
-            Sex genToUpdate;
             int tempToUpdate;
             int pulsToUpdate;
             int bloodToUpdate;
@@ -280,10 +278,6 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    public void onCreate(){
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -334,9 +328,10 @@ public class HomeFragment extends Fragment {
     }
 
     //cu ajutorul ei salvam in db
+    @SuppressLint("StaticFieldLeak")
     class UpdateDetailsTask extends AsyncTask<Void, Void, Void> {
 
-        private User user;
+        private final User user;
 
         UpdateDetailsTask(User user) {
             this.user = user;
