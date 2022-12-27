@@ -33,7 +33,7 @@
         android:id="@+id/bmiInput"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#D50000"
         android:clickable="false"
         android:editable="false"
@@ -47,7 +47,7 @@
         android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toEndOf="@+id/bmi"
         app:layout_constraintTop_toBottomOf="@+id/bloodInput" />
 
@@ -172,7 +172,7 @@
         android:layout_width="68dp"
         android:layout_height="37dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:capitalize="none"
         android:fontFamily="sans-serif-condensed-light"
         android:includeFontPadding="false"

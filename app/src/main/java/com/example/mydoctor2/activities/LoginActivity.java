@@ -131,12 +131,12 @@ class LoginUserTask extends AsyncTask<Void, Void, Void> {
             }
             else
                 {
-                    Toast.makeText(LoginActivity.this, "Password is wrong!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Parola e greșită!", Toast.LENGTH_SHORT).show();
                     verify = true;
                 }
         }
         if(!verify){
-            Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Username-ul nu există", Toast.LENGTH_SHORT).show();
         }
     }
 }

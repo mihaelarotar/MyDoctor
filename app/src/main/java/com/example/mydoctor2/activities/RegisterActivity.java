@@ -137,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             if (isOkay) {
-                Toast.makeText(RegisterActivity.this, "User Created!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "User creat!", Toast.LENGTH_SHORT).show();
                 SharedPref sharedPref = SharedPref.getInstance();
                 sharedPref.setUser(RegisterActivity.this, user);
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(RegisterActivity.this, "This email is already using by someone else", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Username-ul e folosit de cineva deja", Toast.LENGTH_SHORT).show();
             }
 
         }

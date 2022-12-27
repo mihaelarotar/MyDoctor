@@ -32,30 +32,28 @@
     <string name="puls">Puls</string>
     <string name="temperatura">Temperatura</string>
     <string name="n_l_ime">Înălțime</string>
-    <string name="kg">KG</string>
-    <string name="metri">Metri</string>
+    <string name="kg">kg</string>
+    <string name="metri">cm</string>
     <string name="gradeCelsius">grade Celsius</string>
     <string name="mmHG">mmHg</string>
-    <string name="username_cannot_empty">Username cannot be empty!</string>
-    <string name="email_cannot_empty">Email cannot be empty!</string>
-    <string name="email_not_valid">Email is not valid!</string>
-    <string name="password_cannot_empty">Password cannot be empty!</string>
-    <string name="password_too_short"><![CDATA[Password is too short! It has to be >= 8!]]></string>
-    <string name="editable">You are able to edit now!</string>
-    <string name="saved">Your personal data is saved!</string>
-    <string name="wrong_height">Height should be between 30 and 250</string>
-    <string name="wrong_temp">Temperature should be between 36 and 42!</string>
-    <string name="wrong_puls">It should be between 30 and 150</string>
+    <string name="username_cannot_empty">Username nu poate fi gol!</string>
+    <string name="email_cannot_empty">Email-ul nu poate fi gol!</string>
+    <string name="email_not_valid">Email-ul nu e valid!</string>
+    <string name="password_cannot_empty">Password nu poate fi goală!</string>
+    <string name="password_too_short"><![CDATA[Password e prea scurtă! Trebuie să fie >= 8!]]></string>
+    <string name="editable">Poți edita acum!</string>
+    <string name="saved">Datele tale personale sunt salvate!</string>
+    <string name="wrong_height">Înălțimea trebuie să fie între 30 și 250</string>
+    <string name="wrong_temp">Temperatura trebuie să fie între 36 și 42!</string>
+    <string name="wrong_puls">Pulsul trebuie să fie între 30 și 150</string>
     <string name="changePass">Schimbă parola</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="oldPass">Parola veche</string>
     <string name="newPass">Parola nouă</string>
     <string name="again_new_password">Parola nouă încă o dată</string>
-    <string name="wrong_pass">Not matching!!!</string>
+    <string name="wrong_pass">Parola veche nu e corectă!!!</string>
     <string name="changed">Parola a fost schimbată!</string>
     <string name="wrong_new_pass">Cele 2 parole noi nu sunt la fel!</string>
     <string name="welcome">Bine ai venit!</string>
-
 
 </resources>
