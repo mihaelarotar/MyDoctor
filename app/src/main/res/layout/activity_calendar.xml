@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:text="@string/back"
             android:textColor="@color/black"
-            android:background="white"
+            android:background="@color/white"
             android:textStyle="bold"
             android:onClick="previousWeekAction"
             android:textSize="20sp"/>
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Feb 2021"
+            android:text="Feb 2022"
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"/>
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:text="@string/forward"
             android:textColor="@color/black"
-            android:background="white"
+            android:background="@color/white"
             android:textStyle="bold"
             android:onClick="nextWeekAction"
             android:textSize="20sp"/>
@@ -53,15 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SUN"
-            android:textColor="@color/gray"
-            android:textAlignment="center"
-            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -117,9 +108,15 @@
             android:textAlignment="center"
             android:textSize="16sp"/>
 
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SUN"
+            android:textColor="@color/gray"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
@@ -132,7 +129,7 @@
         android:layout_height="wrap_content"
         android:text="New Event"
         android:textColor="@color/blue"
-        android:background="white"
+        android:background="@color/white"
         android:textStyle="bold"
         android:onClick="newEventAction"
         android:layout_gravity="center"
