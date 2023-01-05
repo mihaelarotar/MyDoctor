@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +60,12 @@ public class AdapterPdf extends RecyclerView.Adapter<AdapterPdf.HolderPdf> {
             @Override
             public void onClick(View view) {
                 listenerPdf.onPdfClick(pdfModel, position);
+            }
+        });
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listenerPdf.onPdfMoreClick(pdfModel, position, holder);
             }
         });
     }
@@ -112,8 +119,9 @@ public class AdapterPdf extends RecyclerView.Adapter<AdapterPdf.HolderPdf> {
     }
 
     public class HolderPdf extends RecyclerView.ViewHolder {
-        private ImageView thumbnail;
-        private TextView name, pages, date;
+        public ImageView thumbnail;
+        public TextView name, pages, date;
+        public ImageButton more;
 
         public HolderPdf(@NonNull View itemView) {
             super(itemView);
@@ -121,6 +129,7 @@ public class AdapterPdf extends RecyclerView.Adapter<AdapterPdf.HolderPdf> {
             name = itemView.findViewById(R.id.name);
             pages = itemView.findViewById(R.id.pages);
             date = itemView.findViewById(R.id.date);
+            more = itemView.findViewById(R.id.more);
         }
     }
 }

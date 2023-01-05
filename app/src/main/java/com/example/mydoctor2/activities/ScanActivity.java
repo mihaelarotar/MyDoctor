@@ -2,6 +2,7 @@ package com.example.mydoctor2.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +35,10 @@ import com.example.mydoctor2.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class ScanActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,6 +55,8 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
     Bitmap bitmap;
     String _imageFileName;
     String fileName;
+    private String imageEncoded;
+    private ArrayList<String> imagesEncodedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +84,7 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_select:
                 new MaterialDialog.Builder(this)
-                        .title("Select image type")
+                        .title("Selectează tipul de imagine")
                         .items(R.array.uploadImages)
                         .itemsIds(R.array.itemIds)
                         .itemsCallback(new MaterialDialog.ListCallback() {
@@ -85,6 +93,7 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                                 switch (which) {
                                     case 0:
                                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                                         startActivityForResult(intent, GALLERY_PICTURE);
                                         break;
                                     case 1:
@@ -108,48 +117,61 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                     intent1.putExtra("fileName", ""+fileName+".pdf");
                     startActivity(intent1);
                 } else {
-                    createPdf();
+                    createPDFWithMultipleImage();
                 }
                 break;
         }
     }
 
-    private void createPdf() {
-        PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
+    private void createPDFWithMultipleImage(){
+        File file = getOutputFile();
+        if (file != null){
+            PdfDocument pdfDocument = new PdfDocument();
 
-        Canvas canvas = page.getCanvas();
+            for (int i = 0; i < imagesEncodedList.size(); i++){
+                Bitmap bitmap = BitmapFactory.decodeFile(imagesEncodedList.get(i));
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), (i + 1)).create();
+                PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+                Canvas canvas = page.getCanvas();
+                Paint paint = new Paint();
+                paint.setColor(Color.BLUE);
+                canvas.drawPaint(paint);
+                canvas.drawBitmap(bitmap, 0f, 0f, null);
+                pdfDocument.finishPage(page);
+                bitmap.recycle();
+            }
+            try {
+                pdfDocument.writeTo(new FileOutputStream(file));
+                btn_convert.setText("Deschide PDF");
+                boolean_save = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Something wrong: " + e, Toast.LENGTH_LONG).show();
+            }
+            pdfDocument.close();
 
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#ffffff"));
-        canvas.drawPaint(paint);
-
-        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
-
-        paint.setColor(Color.BLUE);
-        canvas.drawBitmap(bitmap, 0, 0, null);
-        document.finishPage(page);
-
-
-        // write the document content
-        File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "PDF Folder");
-        if (!filePath.exists()) {
-            filePath.mkdirs();
         }
-        fileName = "picture5";
-        File file = new File(filePath, fileName + ".pdf");
-        try {
-            document.writeTo(new FileOutputStream(file));
-            btn_convert.setText("Deschide PDF");
-            boolean_save = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Something wrong: " + e, Toast.LENGTH_LONG).show();
+    }
+
+    private File getOutputFile(){
+        File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "PDF Folder");
+
+        boolean isFolderCreated = true;
+
+        if (!root.exists()){
+            isFolderCreated = root.mkdirs();
         }
 
-        // close the document
-        document.close();
+        if (isFolderCreated) {
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
+            fileName = "PDF_" + timeStamp;
+
+            return new File(root, fileName + ".pdf");
+        }
+        else {
+            Toast.makeText(this, "Folder is not created", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
 
@@ -159,24 +181,50 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
 
         if (requestCode == GALLERY_PICTURE) {
             if (resultCode == RESULT_OK) {
-                Uri selectedImage = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                imagesEncodedList = new ArrayList<>();
+                if (data.getData() != null) {
+                    Uri selectedImage = data.getData();
 
-                Cursor cursor = getContentResolver().query(
-                        selectedImage, filePathColumn, null, null, null);
-                cursor.moveToFirst();
+                    Cursor cursor = getContentResolver().query(
+                            selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String filePath = cursor.getString(columnIndex);
-                cursor.close();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    bitmap = BitmapFactory.decodeFile(filePath);
+                    iv_image.setImageBitmap(bitmap);
 
 
-                bitmap = BitmapFactory.decodeFile(filePath);
-                iv_image.setImageBitmap(bitmap);
+                    btn_convert.setClickable(true);
+                } else {
+                    if (data.getClipData() != null) {
+                        ClipData mClipData = data.getClipData();
+                        ArrayList<Uri> mArrayUri = new ArrayList<>();
+                        for (int i = 0; i < mClipData.getItemCount(); i++) {
 
+                            ClipData.Item item = mClipData.getItemAt(i);
+                            Uri uri = item.getUri();
+                            mArrayUri.add(uri);
+                            // Get the cursor
+                            Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
+                            // Move to first row
+                            cursor.moveToFirst();
 
-                btn_convert.setClickable(true);
+                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                            imageEncoded = cursor.getString(columnIndex);
+                            imagesEncodedList.add(imageEncoded);
+                            cursor.close();
+
+                            btn_convert.setClickable(true);
+                        }
+                        Log.v("LOG_TAG", "Selected Images" + mArrayUri.size());
+                    }
+                }
             }
+
         } else if (requestCode == CAPTURE_PHOTO) {
             if (resultCode == RESULT_OK) {
 

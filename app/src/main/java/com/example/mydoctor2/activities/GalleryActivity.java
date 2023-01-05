@@ -1,12 +1,20 @@
 package com.example.mydoctor2.activities;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -22,7 +30,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
-    private Context mContext;
+//    private Context mContext;
     private ArrayList<PdfModel> pdfList;
     private AdapterPdf adapterPdf;
     private RecyclerView recyclerView;
@@ -87,8 +95,90 @@ public class GalleryActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.pdfList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+        loadPdfDocuments();
+
+    }
+
+    private void showMoreOptions(PdfModel pdfModel, AdapterPdf.HolderPdf holder) {
+        PopupMenu popupMenu = new PopupMenu(getApplicationContext(), holder.more);
+        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Redenumire");
+        popupMenu.getMenu().add(Menu.NONE, 1, 1, "Ștergere");
+//        popupMenu.getMenu().add(Menu.NONE, 2, 2, "Trimitere");
+
+        popupMenu.show();
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int itemId = menuItem.getItemId();
+                if (itemId == 0) {
+                    renamePdf(pdfModel);
+                } else if (itemId == 1) {
+                    deletePdf(pdfModel);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void deletePdf(PdfModel pdfModel) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GalleryActivity.this);
+        builder.setTitle("Ștergere fișier")
+                .setMessage("Ștergere " + pdfModel.getFile().getName())
+                .setPositiveButton("ȘTERGERE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        pdfModel.getFile().delete();
+                        loadPdfDocuments();
+                    }
+                })
+                .setNegativeButton("ANULARE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void renamePdf(PdfModel pdfModel) {
+        Log.d(TAG, "rename PDF: " + pdfModel.getFile().getName());
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_rename, null);
+        EditText pdfName = view.findViewById(R.id.pdfName);
+        Button renameButton = view.findViewById(R.id.renameButton);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(GalleryActivity.this);
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        renameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newName = pdfName.getText().toString().trim();
+
+                if (newName.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Numele nu poate fi gol", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                        File folder = new File(root.getAbsolutePath() + "/" + "PDF Folder");
+
+                        File file = new File(folder, newName + ".pdf");
+                        pdfModel.getFile().renameTo(file);
+                        loadPdfDocuments();
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed to rename " + e.getMessage());
+                    }
+                    alertDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    private void loadPdfDocuments() {
         pdfList = new ArrayList<>();
         adapterPdf = new AdapterPdf(getApplicationContext(), pdfList, new ListenerPdf() {
             @Override
@@ -98,15 +188,14 @@ public class GalleryActivity extends AppCompatActivity {
                 intent.putExtra("fileName", ""+pdfModel.getFile().getName());
                 startActivity(intent);
             }
+
+            @Override
+            public void onPdfMoreClick(PdfModel pdfModel, int position, AdapterPdf.HolderPdf holder) {
+                showMoreOptions(pdfModel, holder);
+            }
         });
-        Log.e(TAG, "load pdf documents " + adapterPdf.getItemCount());
+
         recyclerView.setAdapter(adapterPdf);
-
-        loadPdfDocuments();
-
-    }
-
-    private void loadPdfDocuments() {
         File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         File folder = new File(root.getAbsolutePath() + "/" + "PDF Folder");

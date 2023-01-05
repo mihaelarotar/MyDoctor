@@ -13,7 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.mydoctor2.activities.GalleryActivity;
 import com.example.mydoctor2.activities.LoginActivity;
 import com.example.mydoctor2.data.Sex;
 import com.example.mydoctor2.databinding.ActivityMainBinding;
@@ -66,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        navigationView.getMenu().findItem(R.id.nav_gallery).setOnMenuItemClickListener(menuItem -> {
-            sharedPref.clearSharedPref(MainActivity.this);
-            Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        });
+//        navigationView.getMenu().findItem(R.id.nav_gallery).setOnMenuItemClickListener(menuItem -> {
+//            sharedPref.clearSharedPref(MainActivity.this);
+//            Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+//            startActivity(intent);
+//            finish();
+//            return true;
+//        });
     }
 
     @Override

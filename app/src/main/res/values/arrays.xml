@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="uploadImages">
-        <item>Pick from gallery</item>
-        <item>Click from camera</item>
+        <item>Alege din galerie</item>
+        <item>Fă o poză</item>
     </string-array>
 
     <string-array name="itemIds">

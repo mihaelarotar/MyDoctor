@@ -46,6 +46,8 @@
     <string name="adeverinte">Adeverințe</string>
     <string name="analize">Analize medicale</string>
     <string name="addDocument">Adaugă document</string>
+    <string name="pdf_name">PDF Name</string>
+    <string name="rename">Redenumire</string>
 
 
 </resources>
