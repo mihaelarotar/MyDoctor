@@ -13,6 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mydoctor2.activities.LoginActivity;
+import com.example.mydoctor2.data.Sex;
+import com.example.mydoctor2.activities.LoginActivity;
 import com.example.mydoctor2.data.User;
 import com.example.mydoctor2.databinding.ActivityMainBinding;
 import com.example.mydoctor2.other.SharedPref;
@@ -34,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         //aici iau userul logat
         User user = SharedPref.getInstance().getUser(this);
 
+        SharedPref sharedPref = SharedPref.getInstance();
+
+//        setSupportActionBar(binding.appBarMain.toolbar);
+//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -55,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+
     }
 
     @Override
@@ -70,6 +83,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 }

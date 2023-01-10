@@ -36,6 +36,14 @@
     <string name="metri">cm</string>
     <string name="gradeCelsius">grade Celsius</string>
     <string name="mmHG">mmHg</string>
+   <string name="convert">Convertește în PDF</string>
+    <string name="select_image">Selectează imagini</string>
+    <string name="adeverinte">Adeverințe</string>
+    <string name="analize">Analize medicale</string>
+    <string name="addDocument">Adaugă document</string>
+    <string name="pdf_name">PDF Name</string>
+    <string name="rename">Redenumire</string>
+
     <string name="username_cannot_empty">Username nu poate fi gol!</string>
     <string name="email_cannot_empty">Email-ul nu poate fi gol!</string>
     <string name="email_not_valid">Email-ul nu e valid!</string>

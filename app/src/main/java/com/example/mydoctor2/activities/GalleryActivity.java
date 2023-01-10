@@ -1,7 +1,6 @@
-package com.example.mydoctor2.ui.gallery;
+package com.example.mydoctor2.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,88 +11,98 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
-import com.example.mydoctor2.activities.PDFViewActivity;
-import com.example.mydoctor2.activities.ScanActivity;
 import com.example.mydoctor2.data.PdfModel;
-import com.example.mydoctor2.databinding.FragmentGalleryBinding;
 import com.example.mydoctor2.interfaces.ListenerPdf;
 import com.example.mydoctor2.other.AdapterPdf;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class GalleryFragment extends Fragment {
-    private Context mContext;
-    private FragmentGalleryBinding binding;
+public class GalleryActivity extends AppCompatActivity {
+//    private Context mContext;
     private ArrayList<PdfModel> pdfList;
     private AdapterPdf adapterPdf;
     private RecyclerView recyclerView;
-    private static final String TAG = "GALLERY_FRAGMENT";
+    private static final String TAG = "GALLERY_ACTIVITY";
+    
+
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        mContext = context;
+//        super.onAttach(context);
+//    }
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.fragment_gallery, container, false);
+//    }
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        CardView cvDocuments = view.findViewById(R.id.addDocument);
+//
+//        cvDocuments.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(mContext, ScanActivity.class));
+//            }
+//        });
+//
+//        recyclerView = view.findViewById(R.id.pdfList);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//
+//        pdfList = new ArrayList<>();
+//        adapterPdf = new AdapterPdf(mContext, pdfList, new ListenerPdf() {
+//            @Override
+//            public void onPdfClick(PdfModel pdfModel, int position) {
+//                Intent intent = new Intent(mContext, PDFViewActivity.class);
+//                intent.putExtra("pdfUri", ""+pdfModel.getUri());
+//                startActivity(intent);
+//            }
+//        });
+//        Log.e(TAG, "load pdf documents " + adapterPdf.getItemCount());
+//        recyclerView.setAdapter(adapterPdf);
+//
+//        loadPdfDocuments();
+//    }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        mContext = context;
-        super.onAttach(context);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_gallery);
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        loadPdfDocuments();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.pdfList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
-        CardView cvDocuments = view.findViewById(R.id.addDocument);
+        CardView cvDocuments = findViewById(R.id.addDocument);
 
         cvDocuments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ScanActivity.class));
-                loadPdfDocuments();
+                startActivity(new Intent(GalleryActivity.this, ScanActivity.class));
             }
         });
 
+        recyclerView = findViewById(R.id.pdfList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         loadPdfDocuments();
+
     }
 
     private void showMoreOptions(PdfModel pdfModel, AdapterPdf.HolderPdf holder) {
-        PopupMenu popupMenu = new PopupMenu(mContext, holder.more);
+        PopupMenu popupMenu = new PopupMenu(getApplicationContext(), holder.more);
         popupMenu.getMenu().add(Menu.NONE, 0, 0, "Redenumire");
         popupMenu.getMenu().add(Menu.NONE, 1, 1, "Ștergere");
 //        popupMenu.getMenu().add(Menu.NONE, 2, 2, "Trimitere");
@@ -115,14 +124,13 @@ public class GalleryFragment extends Fragment {
     }
 
     private void deletePdf(PdfModel pdfModel) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(GalleryActivity.this);
         builder.setTitle("Ștergere fișier")
                 .setMessage("Ștergere " + pdfModel.getFile().getName())
                 .setPositiveButton("ȘTERGERE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         pdfModel.getFile().delete();
-                        Toast.makeText(mContext, "Fișierul a fost șters", Toast.LENGTH_SHORT).show();
                         loadPdfDocuments();
                     }
                 })
@@ -137,11 +145,11 @@ public class GalleryFragment extends Fragment {
 
     private void renamePdf(PdfModel pdfModel) {
         Log.d(TAG, "rename PDF: " + pdfModel.getFile().getName());
-        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_rename, null);
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_rename, null);
         EditText pdfName = view.findViewById(R.id.pdfName);
         Button renameButton = view.findViewById(R.id.renameButton);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(GalleryActivity.this);
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -152,7 +160,7 @@ public class GalleryFragment extends Fragment {
                 String newName = pdfName.getText().toString().trim();
 
                 if (newName.isEmpty()) {
-                    Toast.makeText(mContext, "Numele nu poate fi gol", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Numele nu poate fi gol", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -172,10 +180,10 @@ public class GalleryFragment extends Fragment {
 
     private void loadPdfDocuments() {
         pdfList = new ArrayList<>();
-        adapterPdf = new AdapterPdf(mContext, pdfList, new ListenerPdf() {
+        adapterPdf = new AdapterPdf(getApplicationContext(), pdfList, new ListenerPdf() {
             @Override
             public void onPdfClick(PdfModel pdfModel, int position) {
-                Intent intent = new Intent(mContext, PDFViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PDFViewActivity.class);
                 intent.putExtra("pdfUri", ""+pdfModel.getUri());
                 intent.putExtra("fileName", ""+pdfModel.getFile().getName());
                 startActivity(intent);
@@ -186,8 +194,8 @@ public class GalleryFragment extends Fragment {
                 showMoreOptions(pdfModel, holder);
             }
         });
-        recyclerView.setAdapter(adapterPdf);
 
+        recyclerView.setAdapter(adapterPdf);
         File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         File folder = new File(root.getAbsolutePath() + "/" + "PDF Folder");
@@ -204,11 +212,5 @@ public class GalleryFragment extends Fragment {
                 adapterPdf.notifyItemInserted(pdfList.size());
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
