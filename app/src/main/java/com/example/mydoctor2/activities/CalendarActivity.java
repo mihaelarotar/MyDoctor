@@ -1,4 +1,4 @@
-package com.example.mydoctor2.ui.calendar;
+package com.example.mydoctor2.activities;
 
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInMonthArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
+import com.example.mydoctor2.ui.calendar.CalendarAdapter;
+import com.example.mydoctor2.ui.calendar.CalendarUtils;
+import com.example.mydoctor2.ui.calendar.WeekViewActivity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.mydoctor2.ui.calendar.activities.LoginActivity;
+import com.example.mydoctor2.activities.LoginActivity;
 import com.example.mydoctor2.data.Sex;
 import com.example.mydoctor2.databinding.ActivityMainBinding;
 import com.example.mydoctor2.other.SharedPref;

@@ -13,9 +13,9 @@
         android:theme="@style/Theme.MyDoctor2"
         tools:targetApi="31">
         <activity android:name=".MainActivity" />
-        <activity android:name=".ui.calendar.activities.RegisterActivity" />
+        <activity android:name=".activities.RegisterActivity" />
         <activity
-            android:name=".ui.calendar.activities.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true"
             android:theme="@style/splashScreenTheme">
             <intent-filter>

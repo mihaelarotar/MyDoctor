@@ -1,4 +1,4 @@
-package com.example.mydoctor2.ui.calendar.activities;
+package com.example.mydoctor2.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
