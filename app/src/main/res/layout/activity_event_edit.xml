@@ -55,7 +55,7 @@
         android:background="@null"
         android:onClick="saveEventAction"
         android:text="Save"
-        android:textColor="@color/blue"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 

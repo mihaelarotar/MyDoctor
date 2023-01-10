@@ -69,9 +69,9 @@ public class HomeFragment extends Fragment {
         if(user.getTemperature() != 0){
             temp.setText(""+user.getTemperature());
             if(user.getTemperature() > 37)
-                temp.setBackgroundColor(Color.parseColor("#51d24e"));
+                temp.setBackgroundColor(Color.parseColor("#ff5a5a"));
             else
-                temp.setBackgroundColor(Color.parseColor("#ca66ee"));
+                temp.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         }
 
 
@@ -271,9 +271,9 @@ public class HomeFragment extends Fragment {
 
 
                 if(tempToUpdate > 37)
-                    temp.setBackgroundColor(Color.parseColor("#51d24e"));
+                    temp.setBackgroundColor(Color.parseColor("#ff5a5a"));
                 else
-                    temp.setBackgroundColor(Color.parseColor("#ca66ee"));
+                    temp.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
 
 
              }

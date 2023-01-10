@@ -42,11 +42,27 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
         monthYearText = view.findViewById(R.id.monthYearTV);
         CalendarUtils.selectedDate = LocalDate.now();
-        Button button = view.findViewById(R.id.back);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button buttonBack = view.findViewById(R.id.back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 previousMonthAction(view);
+            }
+        });
+
+        Button buttonNext = view.findViewById(R.id.next);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nextMonthAction(view);
+            }
+        });
+
+        Button buttonWeekly = view.findViewById(R.id.backWeekly);
+        buttonWeekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                weeklyAction(view);
             }
         });
         setMonthView();
