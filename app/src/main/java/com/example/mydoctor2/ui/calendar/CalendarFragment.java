@@ -1,110 +1,83 @@
 package com.example.mydoctor2.ui.calendar;
 
-import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInWeekArray;
+import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInMonthArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
-import com.example.mydoctor2.databinding.ActivityCalendarBinding;
+import com.example.mydoctor2.databinding.FragmentSlideshowBinding;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
 
+    private FragmentSlideshowBinding binding;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
-    private ListView eventListView;
-
-    private ActivityCalendarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.activity_calendar, container, false);
-        calendarRecyclerView = root.findViewById(R.id.calendarRecyclerView);
-        monthYearText = root.findViewById(R.id.monthYearTV);
-        eventListView = root.findViewById(R.id.eventListView);
-        setWeekView();
-        return root;
+        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_week_view);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
+        monthYearText = view.findViewById(R.id.monthYearTV);
+        CalendarUtils.selectedDate = LocalDate.now();
+        setMonthView();
     }
 
-    private void setWeekView()
-    {
+    private void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
+        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),7);
-        calendarRecyclerView.setLayoutManager(layoutManager);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
         calendarRecyclerView.setAdapter(calendarAdapter);
-//        setEventAdpater();
     }
 
-
-    public void previousWeekAction(View view)
-    {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
-        setWeekView();
+    public void previousMonthAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
+        setMonthView();
     }
 
-    public void nextWeekAction(View view)
-    {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
-        setWeekView();
+    public void nextMonthAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
+        setMonthView();
     }
 
     @Override
-    public void onItemClick(int position, LocalDate date)
-    {
-        CalendarUtils.selectedDate = date;
-        setWeekView();
+    public void onItemClick(int position, LocalDate date) {
+        if (date != null) {
+            CalendarUtils.selectedDate = date;
+            setMonthView();
+        }
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-//        setEventAdpater();
-    }
-//    private FragmentSlideshowBinding binding;
-//
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//                             ViewGroup container, Bundle savedInstanceState) {
-//        CalendarViewModel slideshowViewModel =
-//                new ViewModelProvider(this).get(CalendarViewModel.class);
-//
-//        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-//        View root = binding.getRoot();
-//
-////        final TextView textView = binding.textSlideshow;
-////        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-//        return root;
-//    }
-//
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void weeklyAction(View view) {
+        startActivity(new Intent(this.getActivity(), WeekViewActivity.class));
     }
 }
