@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,13 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
         monthYearText = view.findViewById(R.id.monthYearTV);
         CalendarUtils.selectedDate = LocalDate.now();
+        Button button = view.findViewById(R.id.back);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                previousMonthAction(view);
+            }
+        });
         setMonthView();
     }
 
@@ -78,6 +86,6 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     }
 
     public void weeklyAction(View view) {
-        startActivity(new Intent(this.getActivity(), WeekViewActivity.class));
+        startActivity(new Intent(getActivity(), WeekViewActivity.class));
     }
 }

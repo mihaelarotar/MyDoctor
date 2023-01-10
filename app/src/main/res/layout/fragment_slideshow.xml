@@ -16,8 +16,8 @@
         android:textColor="@color/blue"
         android:background="@null"
         android:textStyle="bold"
-        android:onClick="weeklyAction"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:id="@+id/backWeekly"/>
 
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:textColor="@color/blue"
             android:background="@null"
             android:textStyle="bold"
-            android:onClick="previousMonthAction"
+            android:id="@+id/back"
             android:textSize="20sp"/>
 
         <TextView
