@@ -63,5 +63,7 @@
     <string name="changed">Parola a fost schimbată!</string>
     <string name="wrong_new_pass">Cele 2 parole noi nu sunt la fel!</string>
     <string name="welcome">Bine ai venit!</string>
+     <string name="select_a_date">Selectează o dată</string>
+    <string name="forward"><![CDATA[->]]></string>
 
 </resources>

@@ -1,45 +1,36 @@
-package com.example.mydoctor2.ui.calendar;
+package com.example.mydoctor2.activities;
 
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInMonthArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
-import com.example.mydoctor2.databinding.FragmentSlideshowBinding;
+import com.example.mydoctor2.ui.calendar.CalendarAdapter;
+import com.example.mydoctor2.ui.calendar.CalendarUtils;
+import com.example.mydoctor2.ui.calendar.WeekViewActivity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
-
-    private FragmentSlideshowBinding binding;
+public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
-        monthYearText = view.findViewById(R.id.monthYearTV);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_slideshow);
+        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
+        monthYearText = findViewById(R.id.monthYearTV);
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
     }
@@ -49,7 +40,8 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
@@ -71,13 +63,7 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
     public void weeklyAction(View view) {
-        startActivity(new Intent(this.getActivity(), WeekViewActivity.class));
+        startActivity(new Intent(this, WeekViewActivity.class));
     }
 }
