@@ -26,7 +26,7 @@ import com.example.mydoctor2.other.SharedPref;
 
 public class HomeFragment extends Fragment {
 
-    private EditText name, kg, height, temp, puls, blood, bmi;
+    private EditText name, kg, height, temp, puls, blood, bmi, status;
     private Spinner gender;
 
     private FragmentHomeBinding binding;
@@ -62,6 +62,39 @@ public class HomeFragment extends Fragment {
         height = rootView.findViewById(R.id.heightInput);
         if(user.getHeight() != 0)
             height.setText(""+user.getHeight());
+
+
+        bmi = rootView.findViewById(R.id.bmiInput);
+        status = rootView.findViewById(R.id.statusInput);
+        if(user.getKg() != 0 && user.getHeight() != 0){
+            float BMI;
+            BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
+            bmi.setText("" + BMI);
+            if(BMI < 18.5){
+                bmi.setBackgroundColor(Color.parseColor("#46CEFF"));
+                status.setText("Subponderal");
+            }
+            else if(18.5 <= BMI && BMI <= 24.9){
+                bmi.setBackgroundColor(Color.parseColor("#57FF4A"));
+                status.setText("Normal");
+            }
+            else if(25 <= BMI && BMI <= 29.9){
+                bmi.setBackgroundColor(Color.parseColor("#FB9D36"));
+                status.setText("Supraponderal");
+            }
+            else if(30 <= BMI && BMI <= 34.9){
+                bmi.setBackgroundColor(Color.parseColor("#FF4040"));
+                status.setText("Obez");
+            }
+            else if(35 <= BMI){
+                bmi.setBackgroundColor(Color.parseColor("#BA53DB"));
+                status.setText("Extrem de obez");
+            }
+        }
+        else
+            bmi.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+
 
         gender = mySpinner;
 
@@ -104,12 +137,7 @@ public class HomeFragment extends Fragment {
         }
 
 
-        bmi = rootView.findViewById(R.id.bmiInput);
-        if(user.getKg() != 0 && user.getHeight() != 0){
-            float BMI;
-            BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
-            bmi.setText("" + BMI);
-        }
+
 
         Button updateData = rootView.findViewById(R.id.updateData);
         Button saveData = rootView.findViewById(R.id.saveData);
@@ -234,13 +262,35 @@ public class HomeFragment extends Fragment {
                 saveData(user, nameToUpdate, kgToUpdate, heightToUpdate, (Sex) gender.getSelectedItem(),
                         tempToUpdate, pulsToUpdate, bloodToUpdate);
 
-                if(user.getKg() != 0 && user.getHeight() != 0){
+
+                if(user.getKg() != 0 && user.getHeight() != 0) {
                     float BMI;
-                    BMI = (user.getKg()*10000)/(user.getHeight()*user.getHeight());
+                    BMI = (user.getKg() * 10000) / (user.getHeight() * user.getHeight());
                     bmi.setText("" + BMI);
+
+                    bmi = rootView.findViewById(R.id.bmiInput);
+                    BMI = (user.getKg() * 10000) / (user.getHeight() * user.getHeight());
+                    bmi.setText("" + BMI);
+                    if (BMI < 18.5) {
+                        bmi.setBackgroundColor(Color.parseColor("#46CEFF"));
+                        status.setText("Subponderal");
+                    } else if (18.5 <= BMI && BMI <= 24.9) {
+                        bmi.setBackgroundColor(Color.parseColor("#57FF4A"));
+                        status.setText("Normal");
+                    } else if (25 <= BMI && BMI <= 29.9) {
+                        bmi.setBackgroundColor(Color.parseColor("#FB9D36"));
+                        status.setText("Supraponderal");
+                    } else if (30 <= BMI && BMI <= 34.9) {
+                        bmi.setBackgroundColor(Color.parseColor("#FF4040"));
+                        status.setText("Obez");
+                    } else if (35 <= BMI) {
+                        bmi.setBackgroundColor(Color.parseColor("#BA53DB"));
+                        status.setText("Extrem de obez");
+                    }
                 }
                 else
                 {
+                    bmi.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     bmi.setText("");
                 }
 

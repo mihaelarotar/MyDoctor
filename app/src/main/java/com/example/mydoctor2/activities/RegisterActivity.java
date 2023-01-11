@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (validateInputs(username, email, encryptedPass))
+            if (validateInputs(username, email, pass))
             {
                 RegisterUserTask registerUserTask = new RegisterUserTask(username, email, encryptedPass);
                 registerUserTask.execute();

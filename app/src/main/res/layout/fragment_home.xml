@@ -8,6 +8,44 @@
     tools:context=".ui.home.HomeFragment">
 
     <EditText
+        android:id="@+id/statusInput"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:clickable="false"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="sans-serif-medium"
+        android:hint="Status"
+        android:inputType="numberDecimal"
+        android:textAlignment="textStart"
+        android:textColorHint="#78909C"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toEndOf="@+id/bmi"
+        app:layout_constraintTop_toBottomOf="@+id/bmiInput" />
+
+    <TextView
+        android:id="@+id/bmi2"
+        android:layout_width="68dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:capitalize="none"
+        android:fontFamily="sans-serif-condensed-light"
+        android:includeFontPadding="false"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bmi"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
         android:id="@+id/bloodInput"
         android:layout_width="160dp"
         android:layout_height="48dp"
@@ -30,8 +68,9 @@
     <EditText
         android:id="@+id/bmiInput"
         android:layout_width="160dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="12dp"
         android:clickable="false"
         android:editable="false"
         android:ems="10"
@@ -43,7 +82,7 @@
         android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintHorizontal_bias="0.282"
         app:layout_constraintStart_toEndOf="@+id/bmi"
         app:layout_constraintTop_toBottomOf="@+id/bloodInput" />
 
@@ -69,8 +108,8 @@
 
     <EditText
         android:id="@+id/tempInput"
-        android:layout_width="168dp"
-        android:layout_height="51dp"
+        android:layout_width="159dp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="140dp"
         android:clickable="false"
@@ -112,7 +151,7 @@
         android:layout_width="116dp"
         android:layout_height="46dp"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="52dp"
         android:backgroundTint="#FE3535"
         android:clickable="true"
@@ -126,9 +165,9 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bmiInput"
+        app:layout_constraintTop_toBottomOf="@+id/statusInput"
         app:toggleCheckedStateOnClick="true"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -151,7 +190,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updateData"
         app:toggleCheckedStateOnClick="true"
@@ -161,8 +200,8 @@
         android:id="@+id/bmi"
         android:layout_width="68dp"
         android:layout_height="37dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         android:capitalize="none"
         android:fontFamily="sans-serif-condensed-light"
         android:includeFontPadding="false"
