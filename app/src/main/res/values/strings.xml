@@ -17,7 +17,7 @@
     <string name="nuAiCont">Nu ai cont?</string>
     <string name="registerYou">Creează cont!</string>
     <string name="email">Email</string>
-    <string name="back">back</string>
+    <string name="back"><![CDATA[<-]]></string>
     <string name="date_personale">Date personale</string>
     <string name="galerie">Galerie</string>
     <string name="calendar">Calendar</string>
@@ -30,7 +30,7 @@
     <string name="nume">Nume</string>
     <string name="gen">Gen</string>
     <string name="puls">Puls</string>
-    <string name="temperatura">Temperatura</string>
+    <string name="temperatura">Temperatură</string>
     <string name="n_l_ime">Înălțime</string>
     <string name="kg">kg</string>
     <string name="metri">cm</string>
@@ -65,5 +65,9 @@
     <string name="welcome">Bine ai venit!</string>
      <string name="select_a_date">Selectează o dată</string>
     <string name="forward"><![CDATA[->]]></string>
+    <string name="new_event">Adaugă eveniment</string>
+    <string name="event_title">Titlu:</string>
+    <string name="event_date">Data</string>
+    <string name="event_time">Ora</string>
 
 </resources>
