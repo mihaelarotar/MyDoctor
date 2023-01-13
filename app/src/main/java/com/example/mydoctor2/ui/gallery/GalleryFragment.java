@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -96,7 +97,7 @@ public class GalleryFragment extends Fragment {
         PopupMenu popupMenu = new PopupMenu(mContext, holder.more);
         popupMenu.getMenu().add(Menu.NONE, 0, 0, "Redenumire");
         popupMenu.getMenu().add(Menu.NONE, 1, 1, "Ștergere");
-//        popupMenu.getMenu().add(Menu.NONE, 2, 2, "Trimitere");
+        popupMenu.getMenu().add(Menu.NONE, 2, 2, "Trimitere");
 
         popupMenu.show();
 
@@ -108,10 +109,23 @@ public class GalleryFragment extends Fragment {
                     renamePdf(pdfModel);
                 } else if (itemId == 1) {
                     deletePdf(pdfModel);
+                } else if (itemId == 2) {
+                    sharePdf(pdfModel);
                 }
                 return true;
             }
         });
+    }
+
+    private void sharePdf(PdfModel pdfModel) {
+        File file = pdfModel.getFile();
+        Uri uri = FileProvider.getUriForFile(mContext, "com.example.mydoctor2.provider", file);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("application/pdf");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Share PDF"));
+
     }
 
     private void deletePdf(PdfModel pdfModel) {
