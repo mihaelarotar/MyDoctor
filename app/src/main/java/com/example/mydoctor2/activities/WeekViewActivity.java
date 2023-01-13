@@ -1,4 +1,4 @@
-package com.example.mydoctor2.ui.calendar;
+package com.example.mydoctor2.activities;
 
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInWeekArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
+import com.example.mydoctor2.ui.calendar.CalendarAdapter;
+import com.example.mydoctor2.ui.calendar.CalendarUtils;
+import com.example.mydoctor2.ui.calendar.Event;
+import com.example.mydoctor2.ui.calendar.EventAdapter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view);
+        setContentView(R.layout.fragment_calendar);
         initWidgets();
         setWeekView();
     }
@@ -49,7 +53,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
-        setEventAdpater();
+        setEventAdapter();
     }
 
 
@@ -76,10 +80,10 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     protected void onResume()
     {
         super.onResume();
-        setEventAdpater();
+        setEventAdapter();
     }
 
-    private void setEventAdpater()
+    private void setEventAdapter()
     {
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);

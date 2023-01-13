@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.calendar.EventEditActivity">
+    tools:context=".activities.EventEditActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Name:"
+        android:text="@string/event_title"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
@@ -31,21 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Date"
+        android:text="@string/event_date"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/eventTimeTV"
+    <TimePicker
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Time"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:timePickerMode="spinner" />
 
     <Button
         android:layout_width="wrap_content"
@@ -54,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:background="@null"
         android:onClick="saveEventAction"
-        android:text="Save"
+        android:text="@string/Save"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
