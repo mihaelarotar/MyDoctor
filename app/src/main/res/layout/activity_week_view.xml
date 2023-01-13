@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.calendar.WeekViewActivity">
+    tools:context=".ui.calendar.CalendarFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,8 @@
             android:background="@null"
             android:textStyle="bold"
             android:onClick="previousWeekAction"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:id="@+id/backWeek"/>
 
         <TextView
             android:id="@+id/monthYearTV"
@@ -45,7 +46,8 @@
             android:background="@null"
             android:textStyle="bold"
             android:onClick="nextWeekAction"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:id="@+id/nextWeek"/>
 
     </LinearLayout>
 
@@ -135,7 +137,8 @@
         android:textStyle="bold"
         android:onClick="newEventAction"
         android:layout_gravity="center"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:id="@+id/newEvent"/>
 
     <ListView
         android:id="@+id/eventListView"

@@ -1,6 +1,7 @@
 package com.example.mydoctor2.ui.calendar;
 
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInMonthArray;
+import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInWeekArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
+import com.example.mydoctor2.databinding.ActivityWeekViewBinding;
 import com.example.mydoctor2.databinding.FragmentSlideshowBinding;
 
 import java.time.LocalDate;
@@ -25,14 +28,15 @@ import java.util.ArrayList;
 
 public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
 
-    private FragmentSlideshowBinding binding;
+    private ActivityWeekViewBinding binding;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    private ListView eventListView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = ActivityWeekViewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -41,57 +45,64 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         super.onViewCreated(view, savedInstanceState);
         calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
         monthYearText = view.findViewById(R.id.monthYearTV);
+        eventListView = view.findViewById(R.id.eventListView);
         CalendarUtils.selectedDate = LocalDate.now();
-        Button buttonBack = view.findViewById(R.id.back);
+        Button buttonBack = view.findViewById(R.id.backWeek);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                previousMonthAction(view);
+                previousWeekAction(view);
             }
         });
 
-        Button buttonNext = view.findViewById(R.id.next);
+        Button buttonNext = view.findViewById(R.id.nextWeek);
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nextMonthAction(view);
+                nextWeekAction(view);
             }
         });
 
-        Button buttonWeekly = view.findViewById(R.id.backWeekly);
-        buttonWeekly.setOnClickListener(new View.OnClickListener() {
+        Button buttonNewEvent = view.findViewById(R.id.newEvent);
+        buttonNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                weeklyAction(view);
+                newEventAction(view);
             }
         });
-        setMonthView();
+
+        setWeekView();
     }
 
-    private void setMonthView() {
+    private void setWeekView()
+    {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+        ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
+        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+        setEventAdpater();
     }
 
-    public void previousMonthAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
-        setMonthView();
+    public void previousWeekAction(View view)
+    {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+        setWeekView();
     }
 
-    public void nextMonthAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
-        setMonthView();
+    public void nextWeekAction(View view)
+    {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+        setWeekView();
     }
 
     @Override
     public void onItemClick(int position, LocalDate date) {
         if (date != null) {
             CalendarUtils.selectedDate = date;
-            setMonthView();
+            setWeekView();
         }
     }
 
@@ -101,7 +112,24 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         binding = null;
     }
 
-    public void weeklyAction(View view) {
-        startActivity(new Intent(getActivity(), WeekViewActivity.class));
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        setEventAdpater();
     }
+
+    private void setEventAdpater()
+    {
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        EventAdapter eventAdapter = new EventAdapter(getContext(), dailyEvents);
+        eventListView.setAdapter(eventAdapter);
+    }
+
+    public void newEventAction(View view)
+    {
+        startActivity(new Intent(getActivity(), EventEditActivity.class));
+    }
+
+
 }
