@@ -1,40 +1,47 @@
 package com.example.mydoctor2.ui.calendar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydoctor2.R;
 
-import java.time.LocalTime;
-
 public class EventEditActivity extends AppCompatActivity {
     private EditText eventNameET;
-    private TextView eventDateTV, eventTimeTV;
-    private LocalTime time;
+    private TextView eventDateTV;
+    private TimePicker timePicker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
         initWidgets();
-        time = LocalTime.now();
+//        timePicker.setIs24HourView(false);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                // display a toast with changed values of time picker
+                Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
+            }
+        });
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
     }
 
     private void initWidgets() {
         eventNameET = findViewById(R.id.eventNameET);
         eventDateTV = findViewById(R.id.eventDateTV);
-        eventTimeTV = findViewById(R.id.eventTimeTV);
+        timePicker = findViewById(R.id.time);
     }
 
     public void saveEventAction(View view) {
         String eventName = eventNameET.getText().toString();
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
+        String eventTime = timePicker.getHour() + ":" + timePicker.getMinute();
+        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, eventTime);
         Event.eventsList.add(newEvent);
         finish();
     }

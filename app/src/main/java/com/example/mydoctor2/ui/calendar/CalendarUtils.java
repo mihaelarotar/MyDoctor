@@ -1,5 +1,7 @@
 package com.example.mydoctor2.ui.calendar;
 
+import android.widget.TimePicker;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,10 +17,10 @@ public class CalendarUtils {
         return date.format(formatter);
     }
 
-    public static String formattedTime(LocalTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        return time.format(formatter);
-    }
+//    public static String formattedTime(TimePicker time) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+//        return time.format(formatter);
+//    }
 
     public static String monthYearFromDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
