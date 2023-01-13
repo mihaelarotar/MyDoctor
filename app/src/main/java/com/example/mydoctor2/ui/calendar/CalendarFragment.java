@@ -1,6 +1,5 @@
 package com.example.mydoctor2.ui.calendar;
 
-import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInMonthArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.daysInWeekArray;
 import static com.example.mydoctor2.ui.calendar.CalendarUtils.monthYearFromDate;
 
@@ -20,15 +19,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydoctor2.R;
-import com.example.mydoctor2.databinding.ActivityWeekViewBinding;
-import com.example.mydoctor2.databinding.FragmentSlideshowBinding;
+import com.example.mydoctor2.activities.EventEditActivity;
+import com.example.mydoctor2.databinding.FragmentCalendarBinding;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
 
-    private ActivityWeekViewBinding binding;
+    private FragmentCalendarBinding binding;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
@@ -36,7 +35,7 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = ActivityWeekViewBinding.inflate(inflater, container, false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

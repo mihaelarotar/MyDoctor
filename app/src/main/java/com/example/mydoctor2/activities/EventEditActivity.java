@@ -1,4 +1,4 @@
-package com.example.mydoctor2.ui.calendar;
+package com.example.mydoctor2.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydoctor2.R;
+import com.example.mydoctor2.ui.calendar.CalendarUtils;
+import com.example.mydoctor2.ui.calendar.Event;
 
 public class EventEditActivity extends AppCompatActivity {
     private EditText eventNameET;

@@ -22,8 +22,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.ScanActivity" />
-        <activity android:name=".ui.calendar.WeekViewActivity" />
-        <activity android:name=".ui.calendar.EventEditActivity" />
+        <activity android:name=".activities.WeekViewActivity" />
+        <activity android:name=".activities.EventEditActivity" />
         <activity android:name=".activities.PDFViewActivity"
             android:screenOrientation="fullSensor"/>
         <activity
