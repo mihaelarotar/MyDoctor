@@ -23,6 +23,7 @@ import com.example.mydoctor2.data.UserDatabase;
 import com.example.mydoctor2.data.UserDatabaseClient;
 import com.example.mydoctor2.databinding.FragmentHomeBinding;
 import com.example.mydoctor2.other.SharedPref;
+import com.example.mydoctor2.ui.utils.InputValidator;
 
 public class HomeFragment extends Fragment {
 
@@ -30,6 +31,7 @@ public class HomeFragment extends Fragment {
     private Spinner gender;
 
     private FragmentHomeBinding binding;
+    private final InputValidator inputValidator = new InputValidator();
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -345,21 +347,21 @@ public class HomeFragment extends Fragment {
 
     private boolean validateInputs(String height, String temp, String puls) {
         if(!height.isEmpty()){
-            if (Float.parseFloat(height) < 30 || Float.parseFloat(height) > 250) {
+            if (inputValidator.validateHeight(Float.parseFloat(height))) {
                 Toast.makeText(getActivity(), getString(R.string.wrong_height), Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
 
         if(!temp.isEmpty()){
-            if (Double.parseDouble(temp) < 36.0 || Double.parseDouble(temp) > 42.0) {
+            if (inputValidator.validateTemperature(Double.parseDouble(temp))) {
                 Toast.makeText(getActivity(), getString(R.string.wrong_temp), Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
 
         if(!puls.isEmpty()){
-            if (Integer.parseInt(puls) < 30 || Integer.parseInt(puls) > 150) {
+            if (inputValidator.validatePulse(Integer.parseInt(puls))) {
                 Toast.makeText(getActivity(), getString(R.string.wrong_puls), Toast.LENGTH_SHORT).show();
                 return false;
             }
