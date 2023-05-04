@@ -1,10 +1,16 @@
 package com.example.mydoctor2.ui.utils;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class InputValidatorTest {
-    private final InputValidator inputValidator = new InputValidator();
+    private InputValidator inputValidator;
+
+    @Before
+    public void setUp() {
+        inputValidator = new InputValidator();
+    }
 
     @Test
     public void testValidateInputs_height_too_small() {

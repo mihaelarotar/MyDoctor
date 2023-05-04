@@ -45,6 +45,9 @@ public class User implements Parcelable {
     @ColumnInfo(name = "sex")
     private Sex sex;
 
+    public User() {
+    }
+
     public User(@NonNull String username, @NonNull String email, @NonNull String password) {
         this.username = username;
         this.email = email;
